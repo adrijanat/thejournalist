@@ -4,11 +4,11 @@
   - Адријана Темелковска, 142019
 
 ### Начин на стартување на апликацијата
-  - Spring(thejournalist) : Во IntelliJ IDEA потребно е да се стартува Spring Boot апликацијата (thejournalist), по што ќе стане достапна на localhost:8080.
-  - ReactJS(react-journalist): Забелешка: директориумот node-modules не е вклучен. Потребно е на компјутерот да е инсталиран Node.js. Потребно е working directory да е папката на апликацијата. Со следните команди ќе се активира React апликацијата (react-journalist), која ќе стане достапна на localhost:3000.
+  - Spring (thejournalist): Во IntelliJ IDEA потребно е да се стартува Spring Boot апликацијата (thejournalist), по што ќе стане достапна на localhost:8080.
+  - ReactJS (react-journalist): Забелешка: директориумот node-modules не е вклучен. Потребно е на компјутерот да е инсталиран Node.js. Потребно е working directory да е папката на апликацијата. Со следните команди ќе се активира React апликацијата (react-journalist), која ќе стане достапна на localhost:3000.
     ```
     cd full/path/to/react-journalist
     npm start
     ```
-### Домашна страница на проектот
+### Домашна страница The Journalist
 ![Image of The Journalist homepage](https://raw.githubusercontent.com/adrijanat/thejournalist/master/screenshots/1%20homepage.png)
