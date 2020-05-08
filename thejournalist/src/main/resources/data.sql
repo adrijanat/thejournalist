@@ -363,8 +363,8 @@ So there you have it: an entirely new way to enjoy the Universe.',
 current_timestamp,
 current_timestamp,
 6,
-10,
-4,
+77,
+58,
 'published',
 'https://www.sciencealert.com/images/2019-03/processed/potw1833a2_web_1024.jpg');
 
@@ -383,8 +383,8 @@ We have the right to waste four hours on social media every day.Because some bef
 current_timestamp,
 current_timestamp,
 7,
-10,
-4,
+52,
+34,
 'published',
 'https://cdn.pixabay.com/photo/2020/02/01/00/19/norway-4809258_960_720.jpg');
 
@@ -406,8 +406,8 @@ This also helps explain his increase in the price target for Netflix''s stock, w
 current_timestamp,
 current_timestamp,
 8,
-10,
-4,
+34,
+3,
 'published',
 'https://boygeniusreport.files.wordpress.com/2020/03/netflix-iphone-app-sign.jpg?quality=98&strip=all&w=782');
 
