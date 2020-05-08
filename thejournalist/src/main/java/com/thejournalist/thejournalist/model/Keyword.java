@@ -1,4 +1,4 @@
-package com.thejournalist.thejournalist.model;
+package com.thejournalist.journalist.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
@@ -18,7 +18,7 @@ public class Keyword {
 
     public String name;
 
-    // foreign keys ---------------------------------------
+    // relationships ---------------------------------------
 
     // ARTICLES
     @ManyToMany

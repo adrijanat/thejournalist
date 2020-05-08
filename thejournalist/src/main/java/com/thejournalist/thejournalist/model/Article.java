@@ -1,4 +1,4 @@
-package com.thejournalist.thejournalist.model;
+package com.thejournalist.journalist.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
@@ -41,36 +41,30 @@ public class Article {
     @UpdateTimestamp
     public Date datelastmodified;
 
-    // foreign keys ---------------------------------------
+    // relationships ---------------------------------------
+
+    // CATEGORY
+    @ManyToOne
+    @JoinColumn(name="categoryid")
+    @JsonBackReference(value="category_articles")
+    public Category category;
+
+    // AUTHORS
+    @ManyToMany(mappedBy = "articles")
+    @JsonBackReference(value="authors_articles")
+    public List<Author> authors = new ArrayList<>();
 
     // COMMENTS
-    @OneToMany(/*mappedBy = "article", */orphanRemoval = true)
-    /*@JoinTable(name = "article_comment",
-            joinColumns = @JoinColumn(name = "articleid", referencedColumnName = "articleid"),
-            inverseJoinColumns = @JoinColumn(name = "commentid", referencedColumnName = "commentid"))*/
+    @OneToMany(orphanRemoval = true)
     public List<Comment> comments = new ArrayList<>();
 
     // STORIES
-    @OneToMany(/*mappedBy = "article", */orphanRemoval = true)
-    /*@JoinTable(name = "article_story",
-            joinColumns = @JoinColumn(name = "articleid", referencedColumnName = "articleid"),
-            inverseJoinColumns = @JoinColumn(name = "storyid", referencedColumnName = "storyid"))*/
+    @OneToMany(orphanRemoval = true)
     public List<Story> stories = new ArrayList<>();
 
-    // CATEGORY
-    @JsonBackReference(value="category-articles")
-    @ManyToOne
-    @JoinColumn(name="categoryid")
-    public Category category;
-
     // KEYWORDS
-    @JsonBackReference
     @ManyToMany(mappedBy = "articles")
+    @JsonBackReference(value="keywords_articles")
     public List<Keyword> keywords = new ArrayList<>();
-
-    // AUTHORS
-    @JsonBackReference(value="author-articles")
-    @ManyToMany(mappedBy = "articles")
-    public List<Author> authors = new ArrayList<>();
 
 }

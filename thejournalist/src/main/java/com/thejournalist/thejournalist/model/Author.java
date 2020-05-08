@@ -1,4 +1,4 @@
-package com.thejournalist.thejournalist.model;
+package com.thejournalist.journalist.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
@@ -25,11 +25,12 @@ public class Author {
 
     public String image;
 
-    // foreign keys ---------------------------------------
+
+    // relationships  ---------------------------------------
 
     // ARTICLES
     @ManyToMany
-    @JsonManagedReference(value="author-articles")
+    @JsonManagedReference(value="authors_articles")
     @JoinTable(name = "authors_articles",
             joinColumns = @JoinColumn(name = "authorid", referencedColumnName = "authorid"),
             inverseJoinColumns = @JoinColumn(name = "articleid", referencedColumnName = "articleid"))

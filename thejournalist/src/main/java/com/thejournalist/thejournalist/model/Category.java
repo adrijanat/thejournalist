@@ -1,4 +1,4 @@
-package com.thejournalist.thejournalist.model;
+package com.thejournalist.journalist.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
@@ -16,11 +16,11 @@ public class Category {
 
     public String name;
 
-    // foreign keys ---------------------------------------
+    // relationships ---------------------------------------
 
     // ARTICLES
     @OneToMany(mappedBy="category")
-    @JsonManagedReference(value="category-articles")
+    @JsonManagedReference(value="category_articles")
     public List<Article> articles = new ArrayList<>();
 
 }
