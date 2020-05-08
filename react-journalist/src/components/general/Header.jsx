@@ -17,8 +17,9 @@ class Header extends Component {
                                 <button className="btn fa fa-search searchbutton"/>
                             </form>
                         </div>
-                        <div className="col">
+                        <div className="col text-center">
                             <a href="/"><img alt="logo" className="img-fluid" src={logo}/></a>
+                            <i style={{display:"block",paddingTop:"5px"}}>Knowledge is power. Information is liberating.</i>
                         </div>
                         <div className="col">
                             <img alt="cover" className="img-rotated" src={small}/>
