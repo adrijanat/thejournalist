@@ -1,6 +1,6 @@
 # The Journalist
   - Online magazine bringing you news from all spheres of life 
-  - Проект по Веб Програмирање, ФИНКИ
+  - Проект по Веб програмирање, ФИНКИ
   - Адријана Темелковска, 142019
 
 ### Начин на стартување на апликацијата
