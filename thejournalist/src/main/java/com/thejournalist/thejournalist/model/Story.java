@@ -1,4 +1,4 @@
-package com.thejournalist.journalist.model;
+package com.thejournalist.thejournalist.model;
 
 import lombok.Data;
 

@@ -1,85 +1,78 @@
 package com.thejournalist.thejournalist.web;
 
-import com.thejournalist.thejournalist.model.Article;
 import com.thejournalist.thejournalist.model.Author;
-import com.thejournalist.thejournalist.repository.AuthorRepository;
-
-import org.springframework.beans.factory.annotation.Autowired;
+import com.thejournalist.thejournalist.service.AuthorService;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.MimeTypeUtils;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import javax.validation.Valid;
-
-import java.net.URI;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
-@CrossOrigin(origins = "*")
-@RequestMapping("/authors")
+//@RequestMapping("/authors")
+@RequestMapping(path = "/authors", produces = MimeTypeUtils.APPLICATION_JSON_VALUE)
 public class AuthorAPI {
-    @Autowired
-    private final AuthorRepository authorRepository;
 
-    public AuthorAPI(AuthorRepository authorRepository) {
-        this.authorRepository = authorRepository;
+    private final AuthorService authorService;
+
+    public AuthorAPI(AuthorService authorService){
+        this.authorService = authorService;
     }
 
-    // get all authors
+    // GET ALL
     @GetMapping
-    public List<Author> retrieveAllAuthors() {
-        return authorRepository.findAll();
+    public ResponseEntity<List<Author>> getAllAuthors(@RequestParam(required=false) String q) {
+        try {
+            if (q == null){ return new ResponseEntity<>(authorService.findAll(), HttpStatus.OK); }
+            else { return new ResponseEntity<>(authorService.findSearch(q), HttpStatus.OK); }
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
-    // get author by id
+    // GET BY ID
     @GetMapping("/{id}")
-    public Author retrieveAuthor(@PathVariable long id) {
-        Optional<Author> author = authorRepository.findById(id);
+    public ResponseEntity<Author> getAuthorById(@PathVariable("id") long id) {
+        Optional<Author> author = authorService.findById(id);
 
-        if (!author.isPresent()) return null;
-
-        return author.get();
+        if (author.isPresent()) {
+            return new ResponseEntity<>(author.get(), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
-    // delete author by id
-    @DeleteMapping("/{id}")
-    public void deleteAuthor(@PathVariable long id) {
-        authorRepository.deleteById(id);
-    }
-
-    // create author
+    // CREATE NEW
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<Object> createAuthor(@Valid @RequestBody Author author) {
-        Author savedAuthor = authorRepository.save(author);
-
-        URI location = ServletUriComponentsBuilder
-                .fromCurrentRequest()
-                .path("/{id}")
-                .buildAndExpand(savedAuthor.getAuthorid())
-                .toUri();
-
-        return ResponseEntity.created(location).build();
+    public ResponseEntity<Author> createAuthor(@RequestBody Author author) {
+        try {
+            return new ResponseEntity<>(authorService.save(author), HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.EXPECTATION_FAILED);
+        }
     }
 
-    // update existing author
+    // UPDATE EXISTING
     @PutMapping("/{id}")
-    public ResponseEntity<Object> updateAuthor(@Valid @RequestBody Author author, @PathVariable long id) {
-
-        Optional<Author> authorOptional = authorRepository.findById(id);
-
-        if (!authorOptional.isPresent())
-            return ResponseEntity.notFound().build();
-
-        author.setAuthorid(id);
-
-        authorRepository.save(author);
-
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<Author> updateAuthor(@PathVariable("id") long id, @RequestBody Author author) {
+        Optional<Author> authorO = authorService.findById(id);
+        if (authorO.isPresent()){
+            author.setAuthorid(id);
+        }
+        return new ResponseEntity<>(authorService.save(author), HttpStatus.OK);
     }
 
+    // DELETE BY ID
+    @DeleteMapping("/{id}")
+    public ResponseEntity<HttpStatus> deleteAuthor(@PathVariable("id") long id) {
+        try {
+            authorService.deleteById(id);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
+        }
+    }
 }

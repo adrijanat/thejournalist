@@ -1,82 +1,77 @@
 package com.thejournalist.thejournalist.web;
 
-import com.thejournalist.thejournalist.model.Article;
 import com.thejournalist.thejournalist.model.Category;
-import com.thejournalist.thejournalist.repository.CategoryRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.thejournalist.thejournalist.service.CategoryService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.MimeTypeUtils;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import javax.validation.Valid;
-import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
-@RestController
 @CrossOrigin(origins = "http://localhost:3000")
-@RequestMapping("/categories")
+@RestController
+//@RequestMapping("/categories")
+@RequestMapping(path = "/categories", produces = MimeTypeUtils.APPLICATION_JSON_VALUE)
 public class CategoryAPI {
-    @Autowired
-    private final CategoryRepository categoryRepository;
 
-    public CategoryAPI(CategoryRepository categoryRepository) {
-        this.categoryRepository = categoryRepository;
+    private final CategoryService categoryService;
+
+    public CategoryAPI(CategoryService categoryService){
+        this.categoryService = categoryService;
     }
 
-    // get all categories
+    // GET ALL
     @GetMapping
-    public List<Category> retrieveAllCategories() {
-        return categoryRepository.findAll();
+    public ResponseEntity<List<Category>> getAllCategories() {
+        try {
+            return new ResponseEntity<>(categoryService.findAll(), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
-    // get category by id
+    // GET BY ID
     @GetMapping("/{id}")
-    public Category retrieveCategory(@PathVariable long id) {
-        Optional<Category> category = categoryRepository.findById(id);
+    public ResponseEntity<Category> getCategoryById(@PathVariable("id") long id) {
+        Optional<Category> category = categoryService.findById(id);
 
-        if (!category.isPresent()) return null;
-
-        return category.get();
+        if (category.isPresent()) {
+            return new ResponseEntity<>(category.get(), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
-    // delete category by id
-    @DeleteMapping("/{id}")
-    public void deleteCategory(@PathVariable long id) {
-        categoryRepository.deleteById(id);
-    }
-
-    // create category
+    // CREATE NEW
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<Object> createCategory(@Valid @RequestBody Category category) {
-
-        Category savedCategory = categoryRepository.save(category);
-
-        URI location = ServletUriComponentsBuilder
-                .fromCurrentRequest()
-                .path("/{id}")
-                .buildAndExpand(savedCategory.getCategoryid())
-                .toUri();
-
-        return ResponseEntity.created(location).build();
+    public ResponseEntity<Category> createCategory(@RequestBody Category category) {
+        try {
+            return new ResponseEntity<>(categoryService.save(category), HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.EXPECTATION_FAILED);
+        }
     }
 
-    // update existing category
+    // UPDATE EXISTING
     @PutMapping("/{id}")
-    public ResponseEntity<Object> updateCategory(@Valid @RequestBody Category category, @PathVariable long id) {
-
-        Optional<Category> categoryOptional = categoryRepository.findById(id);
-
-        if (!categoryOptional.isPresent())
-            return ResponseEntity.notFound().build();
-
-        category.setCategoryid(id);
-
-        categoryRepository.save(category);
-
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<Category> updateCategory(@PathVariable("id") long id, @RequestBody Category category) {
+        Optional<Category> categoryO = categoryService.findById(id);
+        if (categoryO.isPresent()){
+            category.setCategoryid(id);
+        }
+        return new ResponseEntity<>(categoryService.save(category), HttpStatus.OK);
     }
 
+    // DELETE BY ID
+    @DeleteMapping("/{id}")
+    public ResponseEntity<HttpStatus> deleteCategory(@PathVariable("id") long id) {
+        try {
+            categoryService.deleteById(id);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
+        }
+    }
 }

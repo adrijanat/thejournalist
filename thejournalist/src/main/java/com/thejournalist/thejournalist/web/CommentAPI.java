@@ -1,80 +1,77 @@
 package com.thejournalist.thejournalist.web;
 
 import com.thejournalist.thejournalist.model.Comment;
-import com.thejournalist.thejournalist.repository.CommentRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.thejournalist.thejournalist.service.CommentService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.MimeTypeUtils;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import javax.validation.Valid;
-import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
-@RestController
 @CrossOrigin(origins = "http://localhost:3000")
-@RequestMapping("/comments")
+@RestController
+//@RequestMapping("/comments")
+@RequestMapping(path = "/comments", produces = MimeTypeUtils.APPLICATION_JSON_VALUE)
 public class CommentAPI {
-    @Autowired
-    private final CommentRepository commentRepository;
 
-    public CommentAPI(CommentRepository commentRepository) {
-        this.commentRepository = commentRepository;
+    private final CommentService commentService;
+
+    public CommentAPI(CommentService commentService){
+        this.commentService = commentService;
     }
 
-    // get all comments
+    // GET ALL
     @GetMapping
-    public List<Comment> retrieveAllComments() {
-        return commentRepository.findAll();
+    public ResponseEntity<List<Comment>> getAllComments() {
+        try {
+             return new ResponseEntity<>(commentService.findAll(), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
-    // get comment by id
+    // GET BY ID
     @GetMapping("/{id}")
-    public Comment retrieveComment(@PathVariable long id) {
-        Optional<Comment> comment = commentRepository.findById(id);
+    public ResponseEntity<Comment> getCommentById(@PathVariable("id") long id) {
+        Optional<Comment> comment = commentService.findById(id);
 
-        if (!comment.isPresent()) return null;
-
-        return comment.get();
+        if (comment.isPresent()) {
+            return new ResponseEntity<>(comment.get(), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
-    // delete comment by id
-    @DeleteMapping("/{id}")
-    public void deleteComment(@PathVariable long id) {
-        commentRepository.deleteById(id);
-    }
-
-    // create comment
+    // CREATE NEW
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<Object> createComment(@Valid @RequestBody Comment comment) {
-        Comment savedComment = commentRepository.save(comment);
-
-        URI location = ServletUriComponentsBuilder
-                .fromCurrentRequest()
-                .path("/{id}")
-                .buildAndExpand(savedComment.getCommentid())
-                .toUri();
-
-        return ResponseEntity.created(location).build();
+    public ResponseEntity<Comment> createComment(@RequestBody Comment comment) {
+        try {
+            return new ResponseEntity<>(commentService.save(comment), HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.EXPECTATION_FAILED);
+        }
     }
 
-    // update existing comment
+    // UPDATE EXISTING
     @PutMapping("/{id}")
-    public ResponseEntity<Object> updateComment(@Valid @RequestBody Comment comment, @PathVariable long id) {
-
-        Optional<Comment> commentOptional = commentRepository.findById(id);
-
-        if (!commentOptional.isPresent())
-            return ResponseEntity.notFound().build();
-
-        comment.setCommentid(id);
-
-        commentRepository.save(comment);
-
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<Comment> updateComment(@PathVariable("id") long id, @RequestBody Comment comment) {
+        Optional<Comment> commentO = commentService.findById(id);
+        if (commentO.isPresent()){
+            comment.setCommentid(id);
+        }
+        return new ResponseEntity<>(commentService.save(comment), HttpStatus.OK);
     }
 
+    // DELETE BY ID
+    @DeleteMapping("/{id}")
+    public ResponseEntity<HttpStatus> deleteComment(@PathVariable("id") long id) {
+        try {
+            commentService.deleteById(id);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
+        }
+    }
 }

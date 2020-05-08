@@ -1,81 +1,77 @@
 package com.thejournalist.thejournalist.web;
 
 import com.thejournalist.thejournalist.model.Keyword;
-import com.thejournalist.thejournalist.repository.KeywordRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.thejournalist.thejournalist.service.KeywordService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.MimeTypeUtils;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import javax.validation.Valid;
-import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
-@RestController
 @CrossOrigin(origins = "http://localhost:3000")
-@RequestMapping("/keywords")
+@RestController
+//@RequestMapping("/keywords")
+@RequestMapping(path = "/keywords", produces = MimeTypeUtils.APPLICATION_JSON_VALUE)
 public class KeywordAPI {
-    @Autowired
-    private final KeywordRepository keywordRepository;
 
-    public KeywordAPI(KeywordRepository keywordRepository) {
-        this.keywordRepository = keywordRepository;
+    private final KeywordService keywordService;
+
+    public KeywordAPI(KeywordService keywordService){
+        this.keywordService = keywordService;
     }
 
-    // get all keywords
+    // GET ALL
     @GetMapping
-    public List<Keyword> retrieveAllKeywords() {
-        return keywordRepository.findAll();
+    public ResponseEntity<List<Keyword>> getAllKeywords() {
+        try {
+             return new ResponseEntity<>(keywordService.findAll(), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
-    // get keyword by id
+    // GET BY ID
     @GetMapping("/{id}")
-    public Keyword retrieveKeyword(@PathVariable long id) {
-        Optional<Keyword> keyword = keywordRepository.findById(id);
+    public ResponseEntity<Keyword> getKeywordById(@PathVariable("id") long id) {
+        Optional<Keyword> keyword = keywordService.findById(id);
 
-        if (!keyword.isPresent()) return null;
-
-        return keyword.get();
+        if (keyword.isPresent()) {
+            return new ResponseEntity<>(keyword.get(), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
-    // delete keyword by id
-    @DeleteMapping("/{id}")
-    public void deleteKeyword(@PathVariable long id) {
-        keywordRepository.deleteById(id);
-    }
-
-    // create keyword
+    // CREATE NEW
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<Object> createKeyword(@Valid @RequestBody Keyword keyword) {
-
-        Keyword savedKeyword = keywordRepository.save(keyword);
-
-        URI location = ServletUriComponentsBuilder
-                .fromCurrentRequest()
-                .path("/{id}")
-                .buildAndExpand(savedKeyword.getKeywordid())
-                .toUri();
-
-        return ResponseEntity.created(location).build();
+    public ResponseEntity<Keyword> createKeyword(@RequestBody Keyword keyword) {
+        try {
+            return new ResponseEntity<>(keywordService.save(keyword), HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.EXPECTATION_FAILED);
+        }
     }
 
-    // update existing keyword
+    // UPDATE EXISTING
     @PutMapping("/{id}")
-    public ResponseEntity<Object> updateKeyword(@Valid @RequestBody Keyword keyword, @PathVariable long id) {
-
-        Optional<Keyword> keywordOptional = keywordRepository.findById(id);
-
-        if (!keywordOptional.isPresent())
-            return ResponseEntity.notFound().build();
-
-        keyword.setKeywordid(id);
-
-        keywordRepository.save(keyword);
-
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<Keyword> updateKeyword(@PathVariable("id") long id, @RequestBody Keyword keyword) {
+        Optional<Keyword> keywordO = keywordService.findById(id);
+        if (keywordO.isPresent()){
+            keyword.setKeywordid(id);
+        }
+        return new ResponseEntity<>(keywordService.save(keyword), HttpStatus.OK);
     }
 
+    // DELETE BY ID
+    @DeleteMapping("/{id}")
+    public ResponseEntity<HttpStatus> deleteKeyword(@PathVariable("id") long id) {
+        try {
+            keywordService.deleteById(id);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
+        }
+    }
 }

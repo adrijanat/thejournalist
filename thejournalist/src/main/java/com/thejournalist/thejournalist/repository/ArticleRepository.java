@@ -1,13 +1,14 @@
 package com.thejournalist.thejournalist.repository;
 
 import com.thejournalist.thejournalist.model.Article;
-import com.thejournalist.thejournalist.model.Author;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ArticleRepository extends JpaRepository<Article, Long> {
+    /*default methods: save(), findOne(), findById(), findAll(), count(), delete(), deleteById() */
 
     // find by search
     List<Article> findByTitleContainingIgnoreCaseOrSummaryContainingIgnoreCaseOrBodyContainingIgnoreCase(String q1, String q2, String q3);
@@ -25,6 +26,6 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
     List<Article> findFirst5ByOrderByUpvotesDesc();
 
     // latest in category
-    Article findFirstByCategory_Categoryid(long id);
+    Optional<Article> findFirstByCategory_Categoryid(long id);
 
 }
