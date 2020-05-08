@@ -58,8 +58,7 @@ class ViewArticle extends Component {
                     <div style={{whiteSpace:"pre-line"}}>
                         {this.state.article.body}
                     </div>
-                    <br/><br/>
-                    <h4>In this article:</h4>
+                    <br/>
                     <hr/>
                     <h3>COMMENTS ({this.state.comments.length})</h3>
                 </div>
