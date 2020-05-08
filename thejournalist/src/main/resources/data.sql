@@ -7,10 +7,6 @@ insert into CATEGORY (name) values ('science');
 insert into CATEGORY (name) values ('opinion');
 insert into CATEGORY (name) values ('business');
 
-insert into COMMENT (name,email,body,datecreated) values ('Jane Smith', 'jane@smith.com', 'comment 1',current_timestamp);
-insert into COMMENT (name,email,body,datecreated) values ('Bob Russel', 'bob@russel.com', 'comment 2',current_timestamp);
-insert into COMMENT (name,email,body,datecreated) values ('Jaime Doe', 'jaime@doe.com', 'comment 3',current_timestamp);
-
 insert into KEYWORD (name) values ('space');
 insert into KEYWORD (name) values ('earth');
 
@@ -490,30 +486,29 @@ current_timestamp,
 'https://hbr.org/resources/images/article_assets/2020/02/Feb20_14_171272186-1024x576.jpg');
 
 
-
-
+insert into COMMENT (name,email,body,datecreated) values ('Jane Smith', 'jane@smith.com', 'Bravo Ireland!',current_timestamp);
+insert into COMMENT (name,email,body,datecreated) values ('Bob Russel', 'bob@russel.com', 'Remember the scene in Mr Robot with the CD and the USBs?',current_timestamp);
 
 -- ASSOCIATIONS
 insert into KEYWORDS_ARTICLES (keywordid,articleid) values (1,4);
 insert into KEYWORDS_ARTICLES (keywordid,articleid) values (2,1);
 
-insert into AUTHORS_ARTICLES (authorid,articleid) values (5,1); -- goodall
-insert into AUTHORS_ARTICLES (authorid,articleid) values (3,2); -- tyrell
-insert into AUTHORS_ARTICLES (authorid,articleid) values (6,3); -- alan
-insert into AUTHORS_ARTICLES (authorid,articleid) values (6,4); -- alan
-insert into AUTHORS_ARTICLES (authorid,articleid) values (1,5); -- joan
-insert into AUTHORS_ARTICLES (authorid,articleid) values (1,6); -- eva
-insert into AUTHORS_ARTICLES (authorid,articleid) values (3,7); -- joan
-insert into AUTHORS_ARTICLES (authorid,articleid) values (1,8); -- eva
-insert into AUTHORS_ARTICLES (authorid,articleid) values (3,9); -- joan
-insert into AUTHORS_ARTICLES (authorid,articleid) values (4,10); -- carl
-insert into AUTHORS_ARTICLES (authorid,articleid) values (4,11); -- eva
-insert into AUTHORS_ARTICLES (authorid,articleid) values (7,12); -- carl
-insert into AUTHORS_ARTICLES (authorid,articleid) values (2,7); -- carl
-insert into AUTHORS_ARTICLES (authorid,articleid) values (1,14); -- eva
-insert into AUTHORS_ARTICLES (authorid,articleid) values (2,15); -- tyrell
-insert into AUTHORS_ARTICLES (authorid,articleid) values (2,16); -- tyrell
+insert into AUTHORS_ARTICLES (authorid,articleid) values (5,1);
+insert into AUTHORS_ARTICLES (authorid,articleid) values (3,2);
+insert into AUTHORS_ARTICLES (authorid,articleid) values (6,3);
+insert into AUTHORS_ARTICLES (authorid,articleid) values (6,4);
+insert into AUTHORS_ARTICLES (authorid,articleid) values (1,5);
+insert into AUTHORS_ARTICLES (authorid,articleid) values (1,6);
+insert into AUTHORS_ARTICLES (authorid,articleid) values (3,7);
+insert into AUTHORS_ARTICLES (authorid,articleid) values (1,8);
+insert into AUTHORS_ARTICLES (authorid,articleid) values (3,9);
+insert into AUTHORS_ARTICLES (authorid,articleid) values (4,10);
+insert into AUTHORS_ARTICLES (authorid,articleid) values (4,11);
+insert into AUTHORS_ARTICLES (authorid,articleid) values (7,12);
+insert into AUTHORS_ARTICLES (authorid,articleid) values (2,7);
+insert into AUTHORS_ARTICLES (authorid,articleid) values (1,14);
+insert into AUTHORS_ARTICLES (authorid,articleid) values (2,15);
+insert into AUTHORS_ARTICLES (authorid,articleid) values (2,16);
 
 insert into ARTICLE_COMMENTS (ARTICLE_ARTICLEID,COMMENTS_COMMENTID) values (1,1);
-insert into ARTICLE_COMMENTS (ARTICLE_ARTICLEID,COMMENTS_COMMENTID) values (1,2);
-insert into ARTICLE_COMMENTS (ARTICLE_ARTICLEID,COMMENTS_COMMENTID) values (2,3);
+insert into ARTICLE_COMMENTS (ARTICLE_ARTICLEID,COMMENTS_COMMENTID) values (3,2);
