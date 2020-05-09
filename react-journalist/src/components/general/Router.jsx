@@ -21,20 +21,21 @@ const AppRouter = () => {
     return(
         <Router>
             <Switch>
-                <Route path="/search" component={Search} />
-                <Route path="/categories/:id" component={Category} />
+                <Route path="/" exact component={Grid} />
+                <Route path="/search" exact component={Search} />
 
-                <Route path="/articles/create" component={CreateArticle} />
-                <Route path="/articles/stories" component={ViewArticleStories} />
-                <Route path="/articles/:id" component={ViewArticle} />
+                <Route path="/categories/:id" exact component={Category} />
 
-                <Route path="/authors/add" component={AddAuthor} />
-                <Route path="/authors/:id/edit" component={EditAuthor} />
-                <Route path="/authors/:id" component={ViewAuthor} />
-                <Route path="/authors" component={ListAuthors} />
+                <Route path="/create" exact component={CreateArticle} />
+                <Route path="/articles/:id" exact component={ViewArticle} />
+                <Route path="/articles/stories" exact component={ViewArticleStories} />
 
-                <Route path="/" component={Grid} />
-                <Route component={Error} />
+                <Route path="/authors" exact component={ListAuthors} />
+                <Route path="/authors/:id" exact component={ViewAuthor} />
+                <Route path="/authors/:id/edit" exact component={EditAuthor} />
+                <Route path="/authors/add" exact component={AddAuthor} />
+
+                <Route exact component={Error} />
             </Switch>
         </Router>
     )
