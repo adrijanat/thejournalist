@@ -7,8 +7,8 @@ insert into CATEGORY (name) values ('science');
 insert into CATEGORY (name) values ('opinion');
 insert into CATEGORY (name) values ('business');
 
-insert into KEYWORD (name) values ('space');
-insert into KEYWORD (name) values ('earth');
+insert into KEYWORD (name) values ('Ireland');
+insert into KEYWORD (name) values ('Native Americans');
 
 insert into AUTHOR (name,email,bio,image) values ('Eva Jonas', 'eva@journalist.com', 'Norwegian journalist', 'https://i.pinimg.com/236x/a3/3c/f6/a33cf6780800fe70920b9b233d4f03b0--lisa-teige-skam-eva.jpg');
 insert into AUTHOR (name,email,bio,image) values ('Tyrell Wellick', 'tyrell@journalist.com', 'Former Senior Vice President of Technology for E Corp','https://66.media.tumblr.com/7623751d5fbcacdaa3b227e86023edc8/tumblr_oxzct9xAYu1rp6b7zo3_250.png');
@@ -17,6 +17,20 @@ insert into AUTHOR (name,email,bio,image) values ('Mikaela Shiffrin', 'mikaela@j
 insert into AUTHOR (name,email,bio,image) values ('Jane Goodall', 'jane@journalist.com', 'English primatologist and anthropologist.','https://www.irishtimes.com/polopoly_fs/1.3301169.1511368242!/image/image.jpg_gen/derivatives/ratio_1x1_w1200/image.jpg');
 insert into AUTHOR (name,email,bio,image) values ('Alan Turing', 'alan@journalist.com', 'English mathematician, computer scientist, logician, cryptanalyst, philosopher, and theoretical biologist.','https://www.biography.com/.image/t_share/MTE5NDg0MDU1MTUzMTE2Njg3/alan-turing-9512017-1-402.jpg');
 insert into AUTHOR (name,email,bio,image) values ('Carl Sagan', 'carl@journalist.com', 'American astronomer, cosmologist, astrophysicist, astrobiologist, author, science popularizer, and science communicator in astronomy and other natural sciences.','https://img.discogs.com/MQ2KI-s9Dz00PAs13RSHKAKE01g=/600x536/smart/filters:strip_icc():format(jpeg):mode_rgb():quality(90)/discogs-images/A-1622298-1258592093.jpeg.jpg');
+
+insert into COMMENT (name,email,body,datecreated) values ('Jane Smith', 'jane@smith.com', 'Bravo Ireland!',current_timestamp);
+insert into COMMENT (name,email,body,datecreated) values ('Bob Russel', 'bob@russel.com', 'Remember the scene in Mr Robot with the CD and the USBs?',current_timestamp);
+
+insert into STORY (question,name,email,location,summary,body) values (
+'Have you been a victim of a burglary?',
+'Laura Jones',
+'laura@jones.com',
+'Dublin',
+'The first time the guy apologized',
+'"My house in D8 was three times broken into in around one year. The first time we were all inside and the guy opened one of the room’s doors and even apologised to the person that was inside [who] thought it was just a friend trying to find the toilet as she was sleeping."
+
+"Another time, they stole a bike entering through the window when I was inside in daylight. He had less than 10 minutes to do it. The third time they stole everything they could including five laptops. The gardaí (that were the three times very nice but zero efficient) told me to make changes to the house and I did."'
+);
 
 --world
 insert into ARTICLE (body,summary,title,datecreated,datelastmodified,categoryid,views,upvotes,status,image) values (
@@ -485,12 +499,43 @@ current_timestamp,
 'published',
 'https://hbr.org/resources/images/article_assets/2020/02/Feb20_14_171272186-1024x576.jpg');
 
+insert into ARTICLE (title,summary,body,datecreated,datelastmodified,categoryid,views,upvotes,status,image) values
+(
+'Burglary stories: ‘I slept with the light on for a year afterwards’',
+'Readers share stories of falling victim to a crime that breaches ‘the right to feel secure in your home’',
+'I was terrified the burglars would return
+“I was broken into whilst I was out at work. I came home and the lock had been broken off my apartment door. My home was ransacked and everything worth anything was stolen. Clothes, kitchenware, toiletries, jewellery.
+“The worst thing was knowing someone had been in my home. It was devastating. I slept with the light on for almost a year afterwards - I was terrified the burglars would return.”
+- Kate Williams
 
-insert into COMMENT (name,email,body,datecreated) values ('Jane Smith', 'jane@smith.com', 'Bravo Ireland!',current_timestamp);
-insert into COMMENT (name,email,body,datecreated) values ('Bob Russel', 'bob@russel.com', 'Remember the scene in Mr Robot with the CD and the USBs?',current_timestamp);
+The first time the guy apologised
+“My house in D8 was three times broken into in around one year. The first time we were all inside and the guy opened one of the room’s doors and even apologised to the person that was inside [who] thought it was just a friend trying to find the toilet as she was sleeping.
+“Another time, they stole a bike entering through the window when I was inside in daylight. He had less than 10 minutes to do it. The third time they stole everything they could including five laptops. The gardaí (that were the three times very nice but zero efficient) told me to make changes to the house and I did.”
+- Laura Jones
 
--- ASSOCIATIONS
-insert into KEYWORDS_ARTICLES (keywordid,articleid) values (1,4);
+The gardaí were fantastic and the culprits were caught
+“I moved to Monaghan in with my boyfriend a few months after nursing my dad through to his death. On the anniversary of his death, we got the keys to our dream house.
+“We spent all day in the house, cleaning and putting together furniture. We went back to my partner’s mam’s house that night with a Chinese takeaway to watch the England vs Iceland match at Euro 2016. That night it rained heavily and my partner slept very uneasily. He got up early, went over to the house, and found contents of boxes we’d brought over strewn across the yard. All of his tools lifted, all of our electricals gone.
+“The gardaí came out and really were fantastic. They spent a couple of hours taking fingerprints and examining the whole house. The culprits were caught, having performed another burglary down the country and the fingerprints matched. Insurance covered us thankfully but it really spoilt our moving in to our new home.”
+- Edel Galvin
+
+My mother died two weeks after the break-in
+“Back in November 2017, my mother’s house was burgled in Glasnevin, Dublin 11. She was 79 years old. She arrived home to the whole house having been turned upside down. They found nothing but left the house in ruins. They had smashed their way into the house through a back door window.
+“Although she was a very active and independent person, as you can imagine this was very stressful for an someone of her age living alone, she was very distraught when I arrived at the house. Although she had an underlying medical condition which left her prone to chest infections she had always recovered well in previous years but this year she didn’t.
+“She went into hospital shortly after and passed away two weeks later. These burglars take away a lot more than cash and jewellery, they take dignity and the right to feel secure in your own home and in this case they contributed to the death of a much loved mother and grandmother.”
+- Keith Kennedy',
+CURRENT_TIMESTAMP,
+CURRENT_TIMESTAMP,
+2,
+15,
+13,
+'published',
+'https://www.irishtimes.com/polopoly_fs/1.4113308.1576159490!/image/image.jpg_gen/derivatives/box_620_330/image.jpg'
+);
+
+
+
+insert into KEYWORDS_ARTICLES (keywordid,articleid) values (1,1);
 insert into KEYWORDS_ARTICLES (keywordid,articleid) values (2,1);
 
 --eva
@@ -505,6 +550,7 @@ INSERT INTO AUTHORS_ARTICLES (AUTHORID,ARTICLEID) VALUES (5,16);
 INSERT INTO AUTHORS_ARTICLES (AUTHORID,ARTICLEID) VALUES (3,7);
 INSERT INTO AUTHORS_ARTICLES (AUTHORID,ARTICLEID) VALUES (3,9);
 INSERT INTO AUTHORS_ARTICLES (AUTHORID,ARTICLEID) VALUES (3,6);
+INSERT INTO AUTHORS_ARTICLES (AUTHORID,ARTICLEID) VALUES (3,17);
 -- mikaela
 INSERT INTO AUTHORS_ARTICLES (AUTHORID,ARTICLEID) VALUES (4,10);
 INSERT INTO AUTHORS_ARTICLES (AUTHORID,ARTICLEID) VALUES (4,11);
@@ -517,6 +563,7 @@ INSERT INTO AUTHORS_ARTICLES (AUTHORID,ARTICLEID) VALUES (6,4);
 INSERT INTO AUTHORS_ARTICLES (AUTHORID,ARTICLEID) VALUES (7,12);
 INSERT INTO AUTHORS_ARTICLES (AUTHORID,ARTICLEID) VALUES (7,13);
 
-
 insert into ARTICLE_COMMENTS (ARTICLE_ARTICLEID,COMMENTS_COMMENTID) values (1,1);
 insert into ARTICLE_COMMENTS (ARTICLE_ARTICLEID,COMMENTS_COMMENTID) values (3,2);
+
+insert into ARTICLE_STORIES (ARTICLE_ARTICLEID,STORIES_STORYID) values (17,1);
