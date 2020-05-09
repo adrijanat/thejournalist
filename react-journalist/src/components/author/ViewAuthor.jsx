@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from "axios";
+import ListArticleElement from "../article/ListArticleElement";
 
 export default class ViewAuthor extends Component {
     constructor(props) {
@@ -48,10 +49,10 @@ export default class ViewAuthor extends Component {
 
                                 <div className="col-md-9">
 
-                            <span style={{float:"right"}}>
+                                    {/*<span style={{float:"right"}}>
                                 <a href={this.state.author.authorid+"/edit"} title="Edit"><i className="btn fa fa-edit btn-secondary"/></a>
                                 <a href="#" title="Delete"><i className="btn fa fa-trash btn-danger"/></a>
-                            </span>
+                            </span>*/}
 
                                     <h2>{this.state.author.name}</h2>
                                     <p>{this.state.author.bio}</p>
@@ -70,28 +71,7 @@ export default class ViewAuthor extends Component {
                             <br/>
                             <h2>Articles ({this.state.articles.length})</h2>
                             <br/>
-                            {
-                                this.state.articles.map(
-                                    article =>
-                                        <div className="row" key={article.articleid}>
-                                            <div className="col-md-3">
-                                                <a href={"/articles/"+article.articleid}>
-                                                    <img src={article.image}/>
-                                                </a>
-                                            </div>
-                                            <div className="col-md-9">
-                                    <span style={{float:"right"}}>
-                                        <a href={"/articles/"+article.articleid+"/edit"} title="Edit"><i className="btn fa fa-edit btn-secondary"/></a>
-                                        <a href="#" title="Delete"><i className="btn fa fa-trash btn-danger"/></a>
-                                    </span>
-
-                                                <a href={"/articles/"+article.articleid}><h3>{article.title}</h3></a>
-                                                <p><span className="category">News</span> | {new Date(article.datelastmodified).toUTCString()}</p>
-                                                <p>{article.summary}</p>
-                                            </div>
-                                        </div>
-                                )
-                            }
+                            { this.state.articles.map( article => <ListArticleElement article={article}/>) }
                         </section>
                         <br/>
 
