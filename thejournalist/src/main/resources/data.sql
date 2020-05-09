@@ -493,22 +493,30 @@ insert into COMMENT (name,email,body,datecreated) values ('Bob Russel', 'bob@rus
 insert into KEYWORDS_ARTICLES (keywordid,articleid) values (1,4);
 insert into KEYWORDS_ARTICLES (keywordid,articleid) values (2,1);
 
-insert into AUTHORS_ARTICLES (authorid,articleid) values (5,1);
-insert into AUTHORS_ARTICLES (authorid,articleid) values (3,2);
-insert into AUTHORS_ARTICLES (authorid,articleid) values (6,3);
-insert into AUTHORS_ARTICLES (authorid,articleid) values (6,4);
-insert into AUTHORS_ARTICLES (authorid,articleid) values (1,5);
-insert into AUTHORS_ARTICLES (authorid,articleid) values (1,6);
-insert into AUTHORS_ARTICLES (authorid,articleid) values (3,7);
-insert into AUTHORS_ARTICLES (authorid,articleid) values (1,8);
-insert into AUTHORS_ARTICLES (authorid,articleid) values (3,9);
-insert into AUTHORS_ARTICLES (authorid,articleid) values (4,10);
-insert into AUTHORS_ARTICLES (authorid,articleid) values (4,11);
-insert into AUTHORS_ARTICLES (authorid,articleid) values (7,12);
-insert into AUTHORS_ARTICLES (authorid,articleid) values (2,7);
-insert into AUTHORS_ARTICLES (authorid,articleid) values (1,14);
-insert into AUTHORS_ARTICLES (authorid,articleid) values (2,15);
-insert into AUTHORS_ARTICLES (authorid,articleid) values (2,16);
+--eva
+INSERT INTO AUTHORS_ARTICLES (AUTHORID,ARTICLEID) VALUES (1,5);
+INSERT INTO AUTHORS_ARTICLES (AUTHORID,ARTICLEID) VALUES (1,14);
+INSERT INTO AUTHORS_ARTICLES (AUTHORID,ARTICLEID) VALUES (1,8);
+--tyrell
+INSERT INTO AUTHORS_ARTICLES (AUTHORID,ARTICLEID) VALUES (2,2);
+INSERT INTO AUTHORS_ARTICLES (AUTHORID,ARTICLEID) VALUES (2,15);
+INSERT INTO AUTHORS_ARTICLES (AUTHORID,ARTICLEID) VALUES (5,16);
+-- joan
+INSERT INTO AUTHORS_ARTICLES (AUTHORID,ARTICLEID) VALUES (3,7);
+INSERT INTO AUTHORS_ARTICLES (AUTHORID,ARTICLEID) VALUES (3,9);
+INSERT INTO AUTHORS_ARTICLES (AUTHORID,ARTICLEID) VALUES (3,6);
+-- mikaela
+INSERT INTO AUTHORS_ARTICLES (AUTHORID,ARTICLEID) VALUES (4,10);
+INSERT INTO AUTHORS_ARTICLES (AUTHORID,ARTICLEID) VALUES (4,11);
+-- jane godall
+INSERT INTO AUTHORS_ARTICLES (AUTHORID,ARTICLEID) VALUES (5,1);
+--alan
+INSERT INTO AUTHORS_ARTICLES (AUTHORID,ARTICLEID) VALUES (6,3);
+INSERT INTO AUTHORS_ARTICLES (AUTHORID,ARTICLEID) VALUES (6,4);
+--carl
+INSERT INTO AUTHORS_ARTICLES (AUTHORID,ARTICLEID) VALUES (7,12);
+INSERT INTO AUTHORS_ARTICLES (AUTHORID,ARTICLEID) VALUES (7,13);
+
 
 insert into ARTICLE_COMMENTS (ARTICLE_ARTICLEID,COMMENTS_COMMENTID) values (1,1);
 insert into ARTICLE_COMMENTS (ARTICLE_ARTICLEID,COMMENTS_COMMENTID) values (3,2);
