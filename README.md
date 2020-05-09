@@ -10,3 +10,6 @@
     cd full/path/to/react-journalist
     npm start
     ```
+### Домашна страница на проектот
+![Image of The Journalist homepage](https://raw.githubusercontent.com/adrijanat/thejournalist/master/screenshots/1_homepage.png)
+
