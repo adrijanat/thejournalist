@@ -98,8 +98,8 @@ She believes Ireland''s strong showing in the study is due to a combination of f
 
 'From detecting breaches and responding to them, Irish organisations are ahead of the game when it comes to cybersecurity',
 'How Ireland''s leaders are cracking the cybersecurity code',
-current_timestamp,
-current_timestamp,
+'2020-05-06 10:12:36.835333',
+'2020-05-06 10:12:36.835333',
 3,
 10,
 4,
