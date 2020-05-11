@@ -2,6 +2,7 @@ package com.thejournalist.thejournalist.web;
 
 import com.thejournalist.thejournalist.model.Keyword;
 import com.thejournalist.thejournalist.service.KeywordService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.MimeTypeUtils;
@@ -12,10 +13,10 @@ import java.util.Optional;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
-//@RequestMapping("/keywords")
 @RequestMapping(path = "/keywords", produces = MimeTypeUtils.APPLICATION_JSON_VALUE)
 public class KeywordAPI {
 
+    @Autowired
     private final KeywordService keywordService;
 
     public KeywordAPI(KeywordService keywordService){

@@ -2,6 +2,7 @@ package com.thejournalist.thejournalist.web;
 
 import com.thejournalist.thejournalist.model.Story;
 import com.thejournalist.thejournalist.service.StoryService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.MimeTypeUtils;
@@ -12,10 +13,10 @@ import java.util.Optional;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
-//@RequestMapping("/stories")
 @RequestMapping(path = "/stories", produces = MimeTypeUtils.APPLICATION_JSON_VALUE)
 public class StoryAPI {
 
+    @Autowired
     private final StoryService storyService;
 
     public StoryAPI(StoryService storyService){

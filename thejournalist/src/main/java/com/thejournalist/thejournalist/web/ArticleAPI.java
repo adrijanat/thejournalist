@@ -1,24 +1,33 @@
 package com.thejournalist.thejournalist.web;
 
+import com.thejournalist.thejournalist.model.Category;
 import com.thejournalist.thejournalist.service.ArticleService;
 import com.thejournalist.thejournalist.model.Article;
+import com.thejournalist.thejournalist.service.CategoryService;
+import com.thejournalist.thejournalist.service.KeywordService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.MimeTypeUtils;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.*;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
-//@RequestMapping("/articles")
 @RequestMapping(path = "/articles", produces = MimeTypeUtils.APPLICATION_JSON_VALUE)
 public class ArticleAPI {
 
+    @Autowired
     private final ArticleService articleService;
+    @Autowired
+    private final CategoryService categoryService;
+    @Autowired
+    private final KeywordService keywordService;
 
-    public ArticleAPI(ArticleService articleService){
+    public ArticleAPI(ArticleService articleService, CategoryService categoryService, KeywordService keywordService){
         this.articleService = articleService;
+        this.categoryService = categoryService;
+        this.keywordService = keywordService;
     }
 
     // GET ALL
@@ -53,6 +62,21 @@ public class ArticleAPI {
             return new ResponseEntity<>(null, HttpStatus.EXPECTATION_FAILED);
         }
     }
+
+    /* ADD ASSOCIATIONS
+    @PostMapping("/{id}/category")
+    public ResponseEntity<Void> createArticleAddCategory(Long catid){
+        return null;
+    }
+
+    @PostMapping("/{id}/authors")
+    public ResponseEntity<Void> createArticleAddAuthors(String[] authors){
+        return null;
+    }
+    @PostMapping("/{id}/keywords")
+    public ResponseEntity<Void> createArticleAddCategory(String[] keywords){
+        return null;
+    }*/
 
     // UPDATE EXISTING
     @PutMapping("/{id}")
