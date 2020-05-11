@@ -21,7 +21,7 @@ class ApiService {
     }
 
     edit(entity,id,obj) {
-        return axios.put(BASE + entity + id, obj);
+        return axios.put(BASE + entity + "/" + id, obj);
     }
 
 }
