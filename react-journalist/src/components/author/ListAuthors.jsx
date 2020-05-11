@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
-import AuthorApiService from "../../service/AuthorApiService";
 
-import axios from 'axios';
+import ApiService from "../../service/ApiService";
 
 class ListAuthors extends Component {
 
@@ -10,7 +9,7 @@ class ListAuthors extends Component {
         this.state = {
             authors: [],
             message: null
-        }
+        };
         this.deleteAuthor = this.deleteAuthor.bind(this);
         this.editAuthor = this.editAuthor.bind(this);
         this.addAuthor = this.addAuthor.bind(this);
@@ -22,31 +21,19 @@ class ListAuthors extends Component {
     }
 
     reloadAuthorList() {
-
-        axios.get('http://localhost:8080/authors')
-        //AuthorApiService.fetchAuthors()
+        ApiService.fetchAll("authors")
             .then(res => {
-                const authors = res.data;
-                this.setState({ authors });
+                this.setState({ authors:res.data });
             })
-
-        /*
-        AuthorApiService.fetchAuthors()
-            .then((res) => {
-                this.setState({authors: res.data.result})
-            });*/
     }
 
     deleteAuthor(authorid) {
         if(!window.confirm('Are you sure you want to delete this author?')){ return; }
-
-        axios.delete('http://localhost:8080/authors/'+authorid)
-        //AuthorApiService.deleteAuthor(authorid)
+        ApiService.deleteId("authors",authorid)
             .then(res => {
                 this.setState({message : 'Author deleted successfully.'});
                 this.setState({authors: this.state.authors.filter(author => author.authorid !== authorid)});
             })
-
     }
 
     editAuthor(id) {
@@ -83,14 +70,11 @@ class ListAuthors extends Component {
                                     <br/><br/>
                                     {author.bio}
                                 </td>
+                                {/*
                                 <td className="listactions">
-                                    {/*<button className="btn btn-outline-secondary" onClick={() => this.editAuthor(author.authorid)}> Edit</button>
-                                    <button className="btn btn-outline-danger" onClick={() => this.deleteAuthor(author.authorid)}> Delete</button>*/}
-
                                     <a className="btn btn-outline-secondary" href={"/authors/"+author.authorid+"/edit"}> Edit</a>
                                     <button className="btn btn-outline-danger" onClick={() => this.deleteAuthor(author.authorid)}> Delete</button>
-
-                                </td>
+                                </td>*/}
                             </tr>
                     )}
                     </tbody>

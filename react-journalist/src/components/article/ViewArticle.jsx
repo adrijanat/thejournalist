@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import axios from "axios";
+import PostComment from "../comment/PostComment";
+import ApiService from "../../service/ApiService";
+import ArticleApiService from "../../service/ArticleApiService";
 
 class ViewArticle extends Component {
     constructor(props) {
@@ -22,38 +24,33 @@ class ViewArticle extends Component {
     reloadArticle() {
 
         // get article
-        axios.get('http://localhost:8080/articles/'+this.props.match.params.id)
+        ApiService.fetchById("articles",this.props.match.params.id)
             .then(res => {
-                const article = res.data;
-                this.setState({ article });
+                this.setState({ article:res.data });
             });
 
         // get article's authors
-        axios.get('http://localhost:8080/articles/'+this.props.match.params.id+"/authors")
+            ArticleApiService.fetchArticleAuthors(this.props.match.params.id)
             .then(res => {
-                const authors = res.data._embedded.authors;
-                this.setState({ authors });
+                this.setState({ authors:res.data._embedded.authors });
             });
 
         // get article's comments
-        axios.get('http://localhost:8080/articles/'+this.props.match.params.id+'/comments')
+        ArticleApiService.fetchArticleComments(this.props.match.params.id)
             .then(res => {
-                const comments = res.data._embedded.comments;
-                this.setState({ comments});
+                this.setState({ comments:res.data._embedded.comments });
             });
 
         // get article's keywords
-        axios.get('http://localhost:8080/articles/'+this.props.match.params.id+'/keywords')
+        ArticleApiService.fetchArticleKeywords(this.props.match.params.id)
             .then(res => {
-                const keywords = res.data._embedded.keywords;
-                this.setState({ keywords });
+                this.setState({ keywords:res.data._embedded.keywords });
             });
 
         // get article's category
-        axios.get('http://localhost:8080/articles/'+this.props.match.params.id+'/category')
+        ArticleApiService.fetchArticleCategory(this.props.match.params.id)
             .then(res => {
-                const category = res.data.name;
-                this.setState({ category });
+                this.setState({ category:res.data.name });
             });
     }
 
@@ -74,15 +71,19 @@ class ViewArticle extends Component {
                     <div style={{whiteSpace:"pre-line"}}>
                         {this.state.article.body}
                     </div>
-                    <br/><br/>
-                    <h3 style={{display:"inline"}}>In this article: </h3>
-                    {
-                        this.state.keywords.map(keyword =>
-                            <span className="badge badge-pill"> {keyword.name} </span>
-                        )
+                    <br/>
+                    {(this.state.keywords.length == 0)
+                        ? <br/>
+                        : <div>
+                            <h3 style={{display:"inline"}}>In this article: </h3>
+                            {this.state.keywords.map(keyword => <span className="badge badge-pill"> {keyword.name} </span> )}</div>
                     }
 
                     <hr/>
+
+                    <PostComment/>
+                    <br/>
+
                     <h3>COMMENTS ({this.state.comments.length})</h3>
                     <table className="table table-borderless">
                         <tbody>
@@ -98,6 +99,7 @@ class ViewArticle extends Component {
                         )}
                         </tbody>
                     </table>
+
                 </div>
             </div>
         )

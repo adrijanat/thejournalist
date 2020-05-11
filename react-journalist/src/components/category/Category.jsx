@@ -1,7 +1,6 @@
 import React from "react";
-import ReactDOM from "react-dom";
-import axios from "axios";
 import ListArticleElement from "../article/ListArticleElement";
+import ApiService from "../../service/ApiService";
 
 class Category extends React.Component {
     constructor(props) {
@@ -19,7 +18,7 @@ class Category extends React.Component {
     }
 
     reloadArticles() {
-        axios.get('http://localhost:8080/categories/'+this.props.match.params.id)
+        ApiService.fetchById("categories",this.props.match.params.id)
             .then(res => {
                 const category = res.data.name;
                 const articles = res.data.articles;

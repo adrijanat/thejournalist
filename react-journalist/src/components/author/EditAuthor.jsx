@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
-import AuthorApiService from "../../service/AuthorApiService";
-import axios from "axios";
+import ApiService from "../../service/ApiService";
 
 class EditAuthor extends Component {
 
@@ -12,7 +11,7 @@ class EditAuthor extends Component {
             email: '',
             bio: '',
             message: null
-        }
+        };
         this.saveAuthor = this.saveAuthor.bind(this);
         this.loadAuthor = this.loadAuthor.bind(this);
     }
@@ -22,18 +21,32 @@ class EditAuthor extends Component {
     }
 
     loadAuthor() {
-        axios.get('http://localhost:8080/authors/'+window.localStorage.getItem("authorid"))
-        //AuthorApiService.fetchAuthorById(window.localStorage.getItem("authorid"))
-            .then((res) => {
-                let author = res.data;
-                this.setState({
-                    id: author.authorid,
-                    name: author.name,
-                    email: author.email,
-                    bio: author.bio,
-                    image: author.image
-                })
-            });
+        if(window.localStorage.getItem("authorid") !=null){
+            ApiService.fetchById("authors",window.localStorage.getItem("authorid"))
+                .then((res) => {
+                    let author = res.data;
+                    this.setState({
+                        authorid: author.authorid,
+                        name: author.name,
+                        email: author.email,
+                        bio: author.bio,
+                        image: author.image
+                    })
+                });
+        }
+        else {
+            ApiService.fetchById("authors", this.props.match.params.id)
+                .then((res) => {
+                    let author = res.data;
+                    this.setState({
+                        id: author.authorid,
+                        name: author.name,
+                        email: author.email,
+                        bio: author.bio,
+                        image: author.image
+                    })
+                });
+        }
     }
 
     onChange = (e) =>
@@ -47,8 +60,8 @@ class EditAuthor extends Component {
             bio: this.state.bio,
             image: this.state.image
         };
-        axios.put('http://localhost:8080/authors/'+author.id, author)
-        //AuthorApiService.editAuthor(author)
+
+        ApiService.edit("authors", this.props.match.params.id, author)
             .then(res => {
                 this.setState({message : 'Author added successfully.'});
                 this.props.history.push('/authors');

@@ -39,7 +39,11 @@ class Search extends React.Component {
                     : <div>
                         <h2>ARTICLES ({this.state.articles.length})</h2>
                         <br/>
-                        { this.state.articles.map(article => <ListArticleElement article={article}/>) }
+                        { this.state.articles.map(
+                            article =>
+                                <ListArticleElement article={article}/>
+                                )
+                        }
                     </div>
                 }
 

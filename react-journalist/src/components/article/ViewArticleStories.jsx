@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import axios from "axios";
+import ArticleApiService from "../../service/ArticleApiService";
 
 class ViewArticleStories extends Component {
     constructor(props) {
@@ -11,10 +11,9 @@ class ViewArticleStories extends Component {
 
     componentDidMount() {
         // get article's stories
-        axios.get('http://localhost:8080/articles/' + this.props.match.params.id + "/stories")
+        ArticleApiService.fetchArticleStories(this.props.match.params.id)
             .then(res => {
-                const stories = res.data._embedded.stories;
-                this.setState({stories});
+                this.setState({stories:res.data._embedded.stories });
             });
     }
 
@@ -36,30 +35,32 @@ class ViewArticleStories extends Component {
             {
                 this.state.stories.map(
                     story =>
-                        <table className="table table-bordered">
-                            <tr style={{"backgroundColor":"#ddd"}}>
-                                <td colSpan="2"><b>Story</b></td>
-                            </tr>
-                            <tr>
-                                <td><b>Name</b></td>
-                                <td>{story.name}</td>
-                            </tr>
-                            <tr>
-                                <td><b>Email</b></td>
-                                <td>{story.email}</td>
-                            </tr>
-                            <tr>
-                                <td><b>Location</b></td>
-                                <td>{story.location}</td>
-                            </tr>
-                            <tr>
-                                <td><b>Summary</b></td>
-                                <td>{story.summary}</td>
-                            </tr>
-                            <tr>
-                                <td><b>Story</b></td>
-                                <td>{story.body}</td>
-                            </tr>
+                        <table key={story.storyid} className="table table-bordered">
+                            <tbody>
+                                <tr style={{"backgroundColor":"#ddd"}}>
+                                    <td colSpan="2"><b>Story</b></td>
+                                </tr>
+                                <tr>
+                                    <td><b>Name</b></td>
+                                    <td>{story.name}</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Email</b></td>
+                                    <td>{story.email}</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Location</b></td>
+                                    <td>{story.location}</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Summary</b></td>
+                                    <td>{story.summary}</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Story</b></td>
+                                    <td>{story.body}</td>
+                                </tr>
+                            </tbody>
                         </table>
                 )
             }

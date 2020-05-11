@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import axios from "axios";
+import ArticleApiService from "../../service/ArticleApiService";
 
 class ListArticleElement extends Component {
     constructor(props) {
@@ -12,18 +12,17 @@ class ListArticleElement extends Component {
 
     componentDidMount() {
         // get article's authors
-        axios.get('http://localhost:8080/articles/'+this.props.article.articleid+"/authors")
+        ArticleApiService.fetchArticleAuthors(this.props.article.articleid)
             .then(res => {
-                const authors = res.data._embedded.authors;
-                this.setState({ authors });
+                this.setState({ authors:res.data._embedded.authors });
             });
 
         // get article's category
-        axios.get('http://localhost:8080/articles/'+this.props.article.articleid+'/category')
+        ArticleApiService.fetchArticleCategory(this.props.article.articleid)
             .then(res => {
-                const category = res.data.name;
-                this.setState({ category });
+                this.setState({ category:res.data.name });
             });
+
     }
 
     render() {
@@ -37,7 +36,7 @@ class ListArticleElement extends Component {
 
                 <div className="col-md-8">
                     <a href={"/articles/"+this.props.article.articleid}><h3>{this.props.article.title}</h3></a>
-                    <p><span className="category">{this.state.category}</span> | by { this.state.authors.map(author => <a href={author._links.self.href.substring(21)}>{author.name}</a>,) } | {new Date(this.props.article.datelastmodified).toUTCString()}</p>
+                    <p><span className="category">{this.state.category}</span> | by { this.state.authors.map(author => <a key={author.authorid} href={author._links.self.href.substring(21)}>{author.name}</a>,) } | {new Date(this.props.article.datelastmodified).toUTCString()}</p>
                     <p>{this.props.article.summary}</p>
                 </div>
             </div>

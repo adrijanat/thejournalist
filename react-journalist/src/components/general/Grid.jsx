@@ -32,11 +32,11 @@ class Grid extends React.Component {
 
                         <ListStats id="list1" naslov="latest"/>
 
-                        <div className="filler" id="fill1"></div>
+                        <div className="filler" id="fill1"/>
 
                         <ListStats id="list2" naslov="mostviewed"/>
 
-                        <div className="filler" id="fill2"></div>
+                        <div className="filler" id="fill2"/>
 
                         <ListStats id="list3" naslov="mostupvoted"/>
 

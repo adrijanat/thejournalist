@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import axios from "axios";
+import ArticleApiService from "../../service/ArticleApiService";
 
 class LastFromCategory extends Component {
     constructor(props) {
@@ -18,17 +18,15 @@ class LastFromCategory extends Component {
     }
 
      reloadArticle() {
-        // get last article in category
-        axios.get('http://localhost:8080/articles/latestincat/'+this.props.catid)
+        ArticleApiService.fetchLatestInCat(this.props.catid)
             .then(res => {
                 const article = res.data;
                 this.setState({ article });
 
                 // get article's authors
-                axios.get('http://localhost:8080/articles/'+article.articleid+"/authors")
+                ArticleApiService.fetchArticleAuthors(article.articleid)
                     .then(res => {
-                        const authors = res.data._embedded.authors;
-                        this.setState({ authors });
+                        this.setState({ authors:res.data._embedded.authors });
                     });
             });
     }

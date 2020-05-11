@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
-//import AuthorApiService from "../../service/AuthorApiService";
-import axios from 'axios'
+import ApiService from "../../service/ApiService";
 
 class AddAuthor extends Component{
 
@@ -25,7 +24,7 @@ class AddAuthor extends Component{
            // image: this.state.image
         };
 
-        axios.post("http://localhost:8080/authors", author)
+        ApiService.add("authors",author)
             .then(res => {
                 this.setState({message : 'Author added successfully.'});
                 this.props.history.push('/authors');

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import axios from "axios";
 import ListArticleElement from "../article/ListArticleElement";
+import ApiService from "../../service/ApiService";
 
 export default class ViewAuthor extends Component {
     constructor(props) {
@@ -19,8 +19,7 @@ export default class ViewAuthor extends Component {
     }
 
     reloadAuthor() {
-
-        axios.get('http://localhost:8080/authors/'+this.props.match.params.id)
+        ApiService.fetchById("authors",this.props.match.params.id)
             .then(res => {
                 const author = res.data;
                 if(res.data.length == 0 ) {
@@ -42,17 +41,15 @@ export default class ViewAuthor extends Component {
                         <section id="author_profile">
                             <div className="row no-gutters">
                                 <div className="col-md-3 d-flex justify-content-center">
-                                    <div className="pic">
+                                    <div className="pic text-center">
                                         <img src={this.state.author.image}/>
                                     </div>
                                 </div>
 
                                 <div className="col-md-9">
-
-                                    {/*<span style={{float:"right"}}>
-                                <a href={this.state.author.authorid+"/edit"} title="Edit"><i className="btn fa fa-edit btn-secondary"/></a>
-                                <a href="#" title="Delete"><i className="btn fa fa-trash btn-danger"/></a>
-                            </span>*/}
+                                    <span style={{float:"right"}}>
+                                    <a href={this.state.author.authorid+"/edit"} title="Edit"><i className="btn fa fa-edit btn-outline-secondary"/></a>
+                                    </span>
 
                                     <h2>{this.state.author.name}</h2>
                                     <p>{this.state.author.bio}</p>

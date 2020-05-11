@@ -21,6 +21,7 @@ const AppRouter = () => {
     return(
         <Router>
             <Switch>
+                <Route path="/test" exact component={Homepage} />
                 <Route path="/" exact component={Grid} />
                 <Route path="/search" exact component={Search} />
 

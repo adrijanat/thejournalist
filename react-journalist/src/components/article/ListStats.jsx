@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import axios from "axios";
-//import axios from "axios";
+import ArticleApiService from "../../service/ArticleApiService";
 
 class ListStats extends Component {
     constructor(props) {
@@ -40,10 +39,9 @@ class ListStats extends Component {
     }
 
     reloadArticles() {
-        axios.get('http://localhost:8080/articles/'+this.props.naslov)
+        ArticleApiService.fetchPick(this.props.naslov)
             .then(res => {
-                const articles = res.data;
-                this.setState({ articles });
+                this.setState({ articles:res.data });
             })
     }
 
