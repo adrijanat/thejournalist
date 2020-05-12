@@ -70,7 +70,7 @@ class ApiService {
     addToCategory(categoryid, articleid){
         //return axios.post(BASE + "category/" + categoryid + "/articles", BASE_A + articleid);
         return axios.post(
-            BASE + "category/" + categoryid + "/articles",
+            BASE + "categories/" + categoryid + "/articles",
             BASE_A + articleid,
             {headers: {"Content-Type": "text/uri-list"}}
         )
