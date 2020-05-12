@@ -49,7 +49,7 @@ class CreateArticle extends Component {
             .then(res => {
                 var aid = res.data.articleid;
                 ArticleApiService.addToCategory(this.state.categoryid,aid);
-                ArticleApiService.addAuthors(aid, [1]); //ArticleApiService.addAuthors(aid, this.state.authors);
+                ArticleApiService.addAuthors(aid, this.state.authors);
                 this.setState({message: 'Article posted.'});
                 //window.location.href = "/articles/"+aid;
                 //window.location.reload();
@@ -59,6 +59,8 @@ class CreateArticle extends Component {
     onChange = (e) => this.setState({ [e.target.name]: e.target.value });
 
     render() {
+        let authors = this.state.authors.map(author => <option key={author.authorid} value={author.authorid}>{author.name}</option>);
+
         return (
             <div className="createarticle">
                 <div className="row">
@@ -83,16 +85,9 @@ class CreateArticle extends Component {
                     <div className="col-md-4 jumbotron" style={{paddingTop:"30px", paddingBottom:"30px"}}>
 
                         <b>By authors:</b>
-                        <select className="form-control" name="authors" value={this.state.authors} onChange={this.onChange}>
-                            {
-                                this.state.authors.map(
-                                author =>
-                                    <option value={author.authorid}>{author.name}</option>
-                                )
-                            }
-                        </select>
-
-                        <br/><b>Category:</b>
+                        <select multiple className="form-control" id="authors" name="authors">options={authors}</select>
+                        <br/>
+                        <b>Category:</b>
                         <select className="form-control" name="categoryid" value={this.state.categoryid} onChange={this.onChange}>
                             <option value="1">World</option>
                             <option value="2">News</option>
@@ -105,7 +100,7 @@ class CreateArticle extends Component {
                         </select>
 
                         <br/><b>Status:</b><br/>
-                        <input type="radio" name="status" value="published" checked/> Published<br/>
+                        <input type="radio" name="status" value="published" defaultChecked/> Published<br/>
                         <input type="radio" name="status" value="draft"/> Draft<br/>
 
                         <br/><b>Keywords:</b><br/>
