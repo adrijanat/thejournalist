@@ -22,7 +22,7 @@ public class Category {
     // ARTICLES
     @JsonIgnore
     @OneToMany(mappedBy="category")
-    //@JsonManagedReference(value="category_articles")
+    @JsonManagedReference(value="category_articles")
     public List<Article> articles = new ArrayList<>();
 
 }
