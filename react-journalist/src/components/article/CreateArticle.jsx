@@ -40,7 +40,8 @@ class CreateArticle extends Component {
             summary: this.state.summary,
             body: this.state.body,
             image: this.state.image,
-            status: 'published'
+            status: 'published',
+            categoryid: this.state.categoryid
         };
 
         // post article
@@ -48,9 +49,9 @@ class CreateArticle extends Component {
             .then(res => {
                 var aid = res.data.articleid;
                 ArticleApiService.addToCategory(this.state.categoryid,aid);
-                //ArticleApiService.addAuthors(aid, this.state.authors);
+                ArticleApiService.addAuthors(aid, [1]); //ArticleApiService.addAuthors(aid, this.state.authors);
                 this.setState({message: 'Article posted.'});
-                //window.location.href = "/articles"+aid;
+                //window.location.href = "/articles/"+aid;
                 //window.location.reload();
             });
     };
@@ -72,27 +73,9 @@ class CreateArticle extends Component {
                     {/* left: summary, body, image */}
                     <div className="col-md-8">
                         <textarea className="form-control" name="summary" value={this.state.summary} rows="2" onChange={this.onChange}>Summary</textarea>
-                        {/* toolbar
-                            <div id="toolbar" className="toolbar">
-                                <button className="tool-items fa fa-bold" onClick={()=>execute('bold')}/>
-                                <button className="tool-items fa fa-italic" onClick={()=>execute('italic')}/>
-                                <button className="tool-items fa fa-underline" onClick={()=>execute('underline')}/>
-                                <button className="tool-items fa fa-strikethrough" onClick={()=>execute('strikethrough')}/>
-                                <button className="tool-items fa fa-link" onClick={link}/>
-                                <input className="tool-items fa fa-camera" type="file" accept="image/*" id="file" style={{display: "none"}} onChange={getImage}/>
-                                <label htmlFor="file" className="tool-items fa fa-camera" style={{marginLeft: "0.04rem", paddingLeft:".7rem"}}/>
-                                <button className="tool-items fa fa-align-left" onClick={()=>execute('justifyLeft')}/>
-                                <button className="tool-items fa fa-align-center" onClick={()=>execute('justifyCenter')}/>
-                                <button className="tool-items fa fa-align-right" onClick={()=>execute('justifyRight')}/>
-                                <button className="tool-items fa fa-outdent" onClick={()=>execute('outdent')}/>
-                                <button className="tool-items fa fa-indent" onClick={()=>execute('indent')}/>
-                                <button className="tool-items fa fa-eraser" onClick={()=>execute('removeFormat')}/>
-                            </div>
-    */}
-                        {/*<div className="editor form-control" contentEditable name="body" value={this.state.body} onChange={this.onChange}>Your text here</div><br/>*/}
                         <br/>
-                        <textarea className="form-control" rows="10" name="body" value={this.state.body} onChange={this.onChange}>Your text here</textarea><br/>
-
+                        <textarea className="form-control" rows="10" name="body" value={this.state.body} onChange={this.onChange}>Your text here</textarea>
+                        <br/>
                         <input type="text" className="form-control" name="image" value={this.state.image} onChange={this.onChange} placeholder="Image URL"/>
                     </div>
 
@@ -100,12 +83,17 @@ class CreateArticle extends Component {
                     <div className="col-md-4 jumbotron" style={{paddingTop:"30px", paddingBottom:"30px"}}>
 
                         <b>By authors:</b>
-                        <select  name="authors" className="form-control">
-                            {this.state.authors.map( author => <option value={author.authorid}>{author.name}</option>) }
+                        <select className="form-control" name="authors" value={this.state.authors} onChange={this.onChange}>
+                            {
+                                this.state.authors.map(
+                                author =>
+                                    <option value={author.authorid}>{author.name}</option>
+                                )
+                            }
                         </select>
 
                         <br/><b>Category:</b>
-                        <select className="form-control" value={this.state.categoryid} onChange={this.onChange}>
+                        <select className="form-control" name="categoryid" value={this.state.categoryid} onChange={this.onChange}>
                             <option value="1">World</option>
                             <option value="2">News</option>
                             <option value="3">Technology</option>
