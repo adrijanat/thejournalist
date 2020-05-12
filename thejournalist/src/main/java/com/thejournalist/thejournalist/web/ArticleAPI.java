@@ -63,21 +63,6 @@ public class ArticleAPI {
         }
     }
 
-    /* ADD ASSOCIATIONS
-    @PostMapping("/{id}/category")
-    public ResponseEntity<Void> createArticleAddCategory(Long catid){
-        return null;
-    }
-
-    @PostMapping("/{id}/authors")
-    public ResponseEntity<Void> createArticleAddAuthors(String[] authors){
-        return null;
-    }
-    @PostMapping("/{id}/keywords")
-    public ResponseEntity<Void> createArticleAddCategory(String[] keywords){
-        return null;
-    }*/
-
     // UPDATE EXISTING
     @PutMapping("/{id}")
     public ResponseEntity<Article> updateArticle(@PathVariable("id") long id, @RequestBody Article article) {
