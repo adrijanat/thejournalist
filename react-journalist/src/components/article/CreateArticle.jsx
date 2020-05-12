@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {execute, link, getImage} from '../../jou/create_article.js';
 import ApiService from "../../service/ApiService";
+import ArticleApiService from "../../service/ArticleApiService";
 
 class CreateArticle extends Component {
     constructor(props) {
@@ -35,24 +36,19 @@ class CreateArticle extends Component {
             status: this.state.status,
             //image : this.state.image
         };
-
-        let category = this.state.category;
-
+        let catid = this.state.category;
         let authors = this.state.authors;
 
         // post article
         var articleN = ApiService.add("articles", article)
             .then(res => {
                 var aid = articleN.articleid;
-                /* post article's category
-                //ApiService.customAdd("articles/"+ aid +"/category",catid);
+                // post article's category
+                ArticleApiService.addToCategory(catid,aid);
 
                 // post article's authors
-                //ApiService.customAdd("articles/"+ aid +"/authors",authorids);
-
-                // post article's keywords
-                //ApiService.customAdd("articles/"+ aid +"/keywords",keys);*/
-
+                ArticleApiService.addAuthors(aid, authors);
+                
                 this.setState({message: 'Article posted.'});
             });
     };
@@ -117,14 +113,14 @@ class CreateArticle extends Component {
                     <div className="col-md-4">
                         {/* category */}
                         <select className="form-control" id="category" value={this.state.category}>
-                            <option>World</option>
-                            <option>News</option>
-                            <option>Technology</option>
-                            <option>Culture</option>
-                            <option>Health</option>
-                            <option>Science</option>
-                            <option>Opinion</option>
-                            <option>Business</option>
+                            <option value="1">World</option>
+                            <option value="2">News</option>
+                            <option value="3">Technology</option>
+                            <option value="4">Culture</option>
+                            <option value="5">Health</option>
+                            <option value="6">Science</option>
+                            <option value="7">Opinion</option>
+                            <option value="8">Business</option>
                         </select>
 
                         <br/>
