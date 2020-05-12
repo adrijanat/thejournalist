@@ -1,5 +1,6 @@
-package com.thejournalist.thejournalist.model;
+package com.thejournalist.journalist.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 
@@ -19,8 +20,9 @@ public class Category {
     // relationships ---------------------------------------
 
     // ARTICLES
+    @JsonIgnore
     @OneToMany(mappedBy="category")
-    @JsonManagedReference(value="category_articles")
+    //@JsonManagedReference(value="category_articles")
     public List<Article> articles = new ArrayList<>();
 
 }

@@ -1,5 +1,6 @@
-package com.thejournalist.thejournalist.model;
+package com.thejournalist.journalist.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 
@@ -22,7 +23,7 @@ public class Keyword {
 
     // ARTICLES
     @ManyToMany
-    @JsonManagedReference
+    //@JsonManagedReference
     @JoinTable(name = "keywords_articles",
             joinColumns = @JoinColumn(name = "keywordid", referencedColumnName = "keywordid"),
             inverseJoinColumns = @JoinColumn(name = "articleid", referencedColumnName = "articleid"))

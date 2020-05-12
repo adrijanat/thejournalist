@@ -1,6 +1,7 @@
-package com.thejournalist.thejournalist.model;
+package com.thejournalist.journalist.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -43,6 +44,14 @@ public class Article {
 
     // relationships ---------------------------------------
 
+    // COMMENTS
+    @OneToMany(orphanRemoval = true)
+    public List<Comment> comments = new ArrayList<>();
+
+    // STORIES
+    @OneToMany(orphanRemoval = true)
+    public List<Story> stories = new ArrayList<>();
+
     // CATEGORY
     @ManyToOne
     @JoinColumn(name="categoryid")
@@ -54,17 +63,8 @@ public class Article {
     @JsonBackReference(value="authors_articles")
     public List<Author> authors = new ArrayList<>();
 
-    // COMMENTS
-    @OneToMany(orphanRemoval = true)
-    public List<Comment> comments = new ArrayList<>();
-
-    // STORIES
-    @OneToMany(orphanRemoval = true)
-    public List<Story> stories = new ArrayList<>();
-
     // KEYWORDS
     @ManyToMany(mappedBy = "articles")
     @JsonBackReference(value="keywords_articles")
     public List<Keyword> keywords = new ArrayList<>();
-
 }
