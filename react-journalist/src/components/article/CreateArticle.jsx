@@ -7,6 +7,12 @@ class CreateArticle extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            title:'',
+            summary:'',
+            body:'',
+            status:'',
+            image:'',
+            categoryid: '',
             authors: [],
             message: null
         };
@@ -30,61 +36,43 @@ class CreateArticle extends Component {
         e.preventDefault();
 
         let article = {
-            title : this.state.title,
-            summary : this.state.summary,
+            title: this.state.title,
+            summary: this.state.summary,
             body: this.state.body,
-            status: this.state.status,
-            //image : this.state.image
+            image: this.state.image,
+            status: 'published'
         };
-        let catid = this.state.category;
-        let authors = this.state.authors;
 
         // post article
-        var articleN = ApiService.add("articles", article)
+        ApiService.add("articles", article)
             .then(res => {
-                var aid = articleN.articleid;
-                // post article's category
-                ArticleApiService.addToCategory(catid,aid);
-
-                // post article's authors
-                ArticleApiService.addAuthors(aid, authors);
-                
+                var aid = res.data.articleid;
+                ArticleApiService.addToCategory(this.state.categoryid,aid);
+                //ArticleApiService.addAuthors(aid, this.state.authors);
                 this.setState({message: 'Article posted.'});
+                //window.location.href = "/articles"+aid;
+                //window.location.reload();
             });
     };
 
-    onChange = (e) =>
-        this.setState({ [e.target.name]: e.target.value });
-
+    onChange = (e) => this.setState({ [e.target.name]: e.target.value });
 
     render() {
         return (
             <div className="createarticle">
-                <h2 className="text-center" style={{width:"100%"}}>Create new article</h2>
-                <br/>
-
-                {/* title */}
-                <input className="form-control titlecontrol" type="text" id="title" value={this.state.title} placeholder="Title" style={{fontSize:"1.5rem", borderRadius:"0"}}/>
-                <br/>
-
-                {/* summary */}
-                <input className="form-control titlecontrol" type="text" id="summary" value={this.state.summary} placeholder="Summary" style={{borderRadius:"0"}}/>
-                <br/>
-
                 <div className="row">
-                    <div className="col-md-8">
-                            {/* authors */}
-                            <select name="authors" className="form-control">
-                                {
-                                    this.state.authors.map(
-                                        author =>
-                                            <option value={author.authorid}>{author.name}</option>
-                                    )
-                                }
-                            </select>
+                    {/* title */}
+                    <div className="col-md-12">
+                        <h2 className="text-center" style={{width:"100%"}}>Create new article</h2>
+                        <br/>
+                        <input className="form-control titlecontrol" name="title" type="text" value={this.state.title} onChange={this.onChange} placeholder="Title" style={{fontSize:"1.5rem", borderRadius:"0"}}/>
+                        <br/>
+                    </div>
 
-                            <br/>
-                            {/* toolbar */}
+                    {/* left: summary, body, image */}
+                    <div className="col-md-8">
+                        <textarea className="form-control" name="summary" value={this.state.summary} rows="2" onChange={this.onChange}>Summary</textarea>
+                        {/* toolbar
                             <div id="toolbar" className="toolbar">
                                 <button className="tool-items fa fa-bold" onClick={()=>execute('bold')}/>
                                 <button className="tool-items fa fa-italic" onClick={()=>execute('italic')}/>
@@ -100,19 +88,24 @@ class CreateArticle extends Component {
                                 <button className="tool-items fa fa-indent" onClick={()=>execute('indent')}/>
                                 <button className="tool-items fa fa-eraser" onClick={()=>execute('removeFormat')}/>
                             </div>
+    */}
+                        {/*<div className="editor form-control" contentEditable name="body" value={this.state.body} onChange={this.onChange}>Your text here</div><br/>*/}
+                        <br/>
+                        <textarea className="form-control" rows="10" name="body" value={this.state.body} onChange={this.onChange}>Your text here</textarea><br/>
 
-                            <br/>
-                            {/* editor */}
-                            <div className="editor form-control" contentEditable id="body" value={this.state.body}/>
-
-                            <br/>
-                            {/* keywords */}
-                            <input className="form-control" type="text" id="keywords" value={this.state.keywords} placeholder="keywords"/>
+                        <input type="text" className="form-control" name="image" value={this.state.image} onChange={this.onChange} placeholder="Image URL"/>
                     </div>
 
-                    <div className="col-md-4">
-                        {/* category */}
-                        <select className="form-control" id="category" value={this.state.category}>
+                    {/* right: authors, category, status, keywords */}
+                    <div className="col-md-4 jumbotron" style={{paddingTop:"30px", paddingBottom:"30px"}}>
+
+                        <b>By authors:</b>
+                        <select  name="authors" className="form-control">
+                            {this.state.authors.map( author => <option value={author.authorid}>{author.name}</option>) }
+                        </select>
+
+                        <br/><b>Category:</b>
+                        <select className="form-control" value={this.state.categoryid} onChange={this.onChange}>
                             <option value="1">World</option>
                             <option value="2">News</option>
                             <option value="3">Technology</option>
@@ -123,33 +116,23 @@ class CreateArticle extends Component {
                             <option value="8">Business</option>
                         </select>
 
-                        <br/>
-                        {/* image */}
-                        <div className="form-group">
-                            <label>Image</label>
-                            <br/>
-                            <input type="file"/>
-                            <br/><br/>
-                            <div style={{width:"100%", height:"250px", background:"#ddd"}}/>
-                        </div>
+                        <br/><b>Status:</b><br/>
+                        <input type="radio" name="status" value="published" checked/> Published<br/>
+                        <input type="radio" name="status" value="draft"/> Draft<br/>
 
+                        <br/><b>Keywords:</b><br/>
+                        <input className="form-control" type="text" id="keywords" placeholder="keywords"/>
                     </div>
                 </div>
 
                 <br/>
-
+                {/* actions */}
                 <div className="row">
                     <div className="col-md-12">
-                        {/* actions */}
                         <a href="/" className="sai btn btn-outline-secondary">Discard</a>
-                        <div style={{float:"right"}}>
-                            <button className="btn btn-outline-secondary">Save as draft</button>
-                            &nbsp;&nbsp;
-                            <button className="btn btn-outline-success">Submit</button>
-                        </div>
+                        <button style={{float:"right"}} className="btn btn-outline-success" onClick={this.saveArticle}>Submit</button>
                     </div>
                 </div>
-
             </div>
         )
     }
