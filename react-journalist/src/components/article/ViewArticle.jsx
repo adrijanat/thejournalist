@@ -81,7 +81,7 @@ class ViewArticle extends Component {
 
                     <hr/>
 
-                    <PostComment/>
+                    <PostComment articleid={this.state.article.articleid}/>
                     <br/>
 
                     <h3>COMMENTS ({this.state.comments.length})</h3>
