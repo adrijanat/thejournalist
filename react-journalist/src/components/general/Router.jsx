@@ -1,7 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
-import Homepage from "./Homepage";
 import Search from "./Search";
 import Error from "./Error";
 import Grid from "./Grid";
@@ -21,7 +20,6 @@ const AppRouter = () => {
     return(
         <Router>
             <Switch>
-                <Route path="/test" exact component={Homepage} />
                 <Route path="/" exact component={Grid} />
                 <Route path="/search" exact component={Search} />
 
