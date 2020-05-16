@@ -1,11 +1,7 @@
 package com.thejournalist.journalist.web;
 
-import com.thejournalist.journalist.model.Category;
 import com.thejournalist.journalist.service.ArticleService;
 import com.thejournalist.journalist.model.Article;
-import com.thejournalist.journalist.service.CategoryService;
-import com.thejournalist.journalist.service.KeywordService;
-import org.hibernate.annotations.GeneratorType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,15 +16,9 @@ public class ArticleAPI {
 
     @Autowired
     private final ArticleService articleService;
-    @Autowired
-    private final CategoryService categoryService;
-    @Autowired
-    private final KeywordService keywordService;
 
-    public ArticleAPI(ArticleService articleService, CategoryService categoryService, KeywordService keywordService){
+    public ArticleAPI(ArticleService articleService){
         this.articleService = articleService;
-        this.categoryService = categoryService;
-        this.keywordService = keywordService;
     }
 
     // GET ALL
