@@ -139,4 +139,15 @@ public class ArticleAPI {
         }
     }
 
+    // STAT: UPVOTES BY CATEGORY
+    @GetMapping("/stat1")
+    public ResponseEntity<Map<String,Integer>> getUpvotesByCat() {
+        try {
+            return new ResponseEntity<>(articleService.upvotesByCategory(), HttpStatus.OK);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
+        }
+    }
+
 }
