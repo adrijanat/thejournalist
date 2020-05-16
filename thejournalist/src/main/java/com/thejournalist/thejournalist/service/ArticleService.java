@@ -1,7 +1,7 @@
-package com.thejournalist.thejournalist.service;
+package com.thejournalist.journalist.service;
 
-import com.thejournalist.thejournalist.model.Article;
-import com.thejournalist.thejournalist.repository.ArticleRepository;
+import com.thejournalist.journalist.model.Article;
+import com.thejournalist.journalist.repository.ArticleRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -56,4 +56,9 @@ public class ArticleService {
         return this.articleRepository.findFirst5ByOrderByUpvotesDesc();
     }
 
+    // INCREMENT UPVOTES
+    public void incrementUpvotes(long id){ this.articleRepository.incrementUpvotes(id); }
+
+    // INCREMENT VIEWS
+    public void incrementViews(long id){ this.articleRepository.incrementViews(id); }
 }
