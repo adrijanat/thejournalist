@@ -36,24 +36,24 @@ public class ArticleService {
     }
 
     // SEARCH
-    public List<Article> findSearch(String q){ return this.articleRepository.findByTitleContainingIgnoreCaseOrSummaryContainingIgnoreCaseOrBodyContainingIgnoreCase(q,q,q); }
+    public List<Article> findSearch(String q){ return this.articleRepository.findByTitleContainingIgnoreCaseOrSummaryContainingIgnoreCaseOrBodyContainingIgnoreCaseAndStatusEquals(q,q,q,"published"); }
 
     // LATEST ARTICLE IN CATEGORY
-    public Optional<Article> findInCat(long catid){ return this.articleRepository.findFirstByCategory_Categoryid(catid); }
+    public Optional<Article> findInCat(long catid){ return this.articleRepository.findFirstByCategory_CategoryidAndStatusEquals(catid,"published"); }
 
     // 5 LATEST
     public List<Article> findLatest5(){
-        return this.articleRepository.findFirst5ByOrderByDatecreatedDesc();
+        return this.articleRepository.findFirst5ByAndStatusEqualsOrderByDatecreatedDesc("published");
     }
 
     // 5 MOST VIEWED
     public List<Article> findMostViewed5(){
-        return this.articleRepository.findFirst5ByOrderByViewsDesc();
+        return this.articleRepository.findFirst5ByAndStatusEqualsOrderByViewsDesc("published");
     }
 
     // 5 MOST UPVOTED
     public List<Article> findMostUpvoted5(){
-        return this.articleRepository.findFirst5ByOrderByUpvotesDesc();
+        return this.articleRepository.findFirst5ByAndStatusEqualsOrderByUpvotesDesc("published");
     }
 
     // INCREMENT UPVOTES
