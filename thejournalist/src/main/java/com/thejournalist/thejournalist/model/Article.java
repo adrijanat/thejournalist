@@ -1,7 +1,6 @@
 package com.thejournalist.journalist.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -34,7 +33,8 @@ public class Article {
 
     public String image;
 
-    public String status;
+    @Enumerated(EnumType.STRING)
+    public Status status;
 
     @CreationTimestamp
     public Date datecreated;
@@ -67,4 +67,4 @@ public class Article {
     @ManyToMany(mappedBy = "articles")
     @JsonBackReference(value="keywords_articles")
     public List<Keyword> keywords = new ArrayList<>();
-}
+};
