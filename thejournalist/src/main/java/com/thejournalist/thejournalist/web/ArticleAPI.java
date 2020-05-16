@@ -5,6 +5,7 @@ import com.thejournalist.journalist.service.ArticleService;
 import com.thejournalist.journalist.model.Article;
 import com.thejournalist.journalist.service.CategoryService;
 import com.thejournalist.journalist.service.KeywordService;
+import org.hibernate.annotations.GeneratorType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
