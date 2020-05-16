@@ -81,7 +81,7 @@ current_timestamp,
 2,
 7,
 0,
-'draft',
+'published',
 'https://www.traveller.com.au/content/dam/images/h/1/a/m/8/q/image.related.articleLeadwide.620x349.h1am8c.png/1548738507159.jpg');
 
 -- technology
@@ -527,9 +527,9 @@ My mother died two weeks after the break-in
 CURRENT_TIMESTAMP,
 CURRENT_TIMESTAMP,
 2,
-15,
-13,
-'published',
+0,
+0,
+'draft',
 'https://www.irishtimes.com/polopoly_fs/1.4113308.1576159490!/image/image.jpg_gen/derivatives/box_620_330/image.jpg'
 );
 
