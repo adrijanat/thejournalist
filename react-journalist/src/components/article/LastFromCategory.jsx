@@ -34,7 +34,7 @@ class LastFromCategory extends Component {
     render() {
         return (
             <div className="categoryarticle">
-                <h5>{this.props.category} »</h5>
+                <h5><a href={"/categories/"+this.props.catid}>{this.props.category} »</a></h5>
                 <div style={{width:"100%", height:"200px", backgroundColor:"#ddd"}}>
                     <a href={"/articles/"+this.state.article.articleid}>
                         <img className="thumbnail" src={this.state.article.image}/>
