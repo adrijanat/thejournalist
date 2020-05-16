@@ -60,27 +60,25 @@ class ViewArticle extends Component {
                 this.setState({ category:res.data.name });
             });
 
-        if(document.cookie.match(/^(.*;)?\s*upvoted\s*=\s*[^;]+(.*)?$/)){
+        if(document.cookie.indexOf("upvoted"+this.props.match.params.id+"=y") > -1){
             document.getElementById("upvoteBtn").style.backgroundColor = "mediumseagreen";
-            document.getElementById("upvoteBtn").style.borderColor = "seagreen";
         }
     }
 
     view(){
-        if(!document.cookie.match(/^(.*;)?\s*viewed\s*=\s*[^;]+(.*)?$/)) {
+        if(document.cookie.indexOf("viewed"+this.props.match.params.id+"=y") == -1){
             ArticleApiService.incrementViews(this.props.match.params.id);
             this.setState({views:this.state.views+1});
-            document.cookie = "viewed=y";
+            document.cookie = "viewed"+this.props.match.params.id+"=y";
         }
     }
 
     upvote(){
-        if(!document.cookie.match(/^(.*;)?\s*upvoted\s*=\s*[^;]+(.*)?$/)){
+        if(document.cookie.indexOf("upvoted"+this.props.match.params.id+"=y") == -1){
             ArticleApiService.incrementUpvotes(this.props.match.params.id);
             this.setState({upvotes:this.state.upvotes+1});
-            document.cookie = "upvoted=y;max-age=31536000";
+            document.cookie = "upvoted"+this.props.match.params.id+"=y;max-age=31536000";
             document.getElementById("upvoteBtn").style.backgroundColor = "mediumseagreen";
-            document.getElementById("upvoteBtn").style.borderColor = "seagreen";
         }
     }
 
@@ -89,7 +87,7 @@ class ViewArticle extends Component {
             <div className="row viewarticle">
                 <div style={{left:"150px", position:"fixed", zIndex:"1000"}}>
                     <h1>
-                        <button id="upvoteBtn" onClick={this.upvote} className="btn btn-danger" style={{width:"50px", marginBottom:"10px"}} title="Click to upvote!"><i className="fa fa-caret-up"/><br/>{this.state.upvotes}</button>
+                        <button id="upvoteBtn" onClick={this.upvote} className="btn btn-danger" style={{border:"none",width:"50px", marginBottom:"10px"}} title="Click to upvote!"><i className="fa fa-caret-up"/><br/>{this.state.upvotes}</button>
                         <br/>
                         <span className="btn btn-light" style={{cursor:"auto", width:"50px"}} title="Views"><i className="fa fa-eye"/>&nbsp;{this.state.views}</span>
                     </h1>
