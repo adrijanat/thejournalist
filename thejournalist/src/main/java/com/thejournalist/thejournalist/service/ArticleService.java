@@ -1,6 +1,7 @@
 package com.thejournalist.journalist.service;
 
 import com.thejournalist.journalist.model.Article;
+import com.thejournalist.journalist.model.Status;
 import com.thejournalist.journalist.repository.ArticleRepository;
 import org.springframework.stereotype.Service;
 
@@ -36,24 +37,24 @@ public class ArticleService {
     }
 
     // SEARCH
-    public List<Article> findSearch(String q){ return this.articleRepository.findByTitleContainingIgnoreCaseOrSummaryContainingIgnoreCaseOrBodyContainingIgnoreCaseAndStatusEquals(q,q,q,"published"); }
+    public List<Article> findSearch(String q){ return this.articleRepository.findByTitleContainingIgnoreCaseOrSummaryContainingIgnoreCaseOrBodyContainingIgnoreCaseAndStatusEquals(q,q,q,Status.PUBLISHED); }
 
     // LATEST ARTICLE IN CATEGORY
-    public Optional<Article> findInCat(long catid){ return this.articleRepository.findFirstByCategory_CategoryidAndStatusEquals(catid,"published"); }
+    public Optional<Article> findInCat(long catid){ return this.articleRepository.findFirstByCategory_CategoryidAndStatusEquals(catid,Status.PUBLISHED); }
 
     // 5 LATEST
     public List<Article> findLatest5(){
-        return this.articleRepository.findFirst5ByAndStatusEqualsOrderByDatecreatedDesc("published");
+        return this.articleRepository.findFirst5ByAndStatusEqualsOrderByDatecreatedDesc(Status.PUBLISHED);
     }
 
     // 5 MOST VIEWED
     public List<Article> findMostViewed5(){
-        return this.articleRepository.findFirst5ByAndStatusEqualsOrderByViewsDesc("published");
+        return this.articleRepository.findFirst5ByAndStatusEqualsOrderByViewsDesc(Status.PUBLISHED);
     }
 
     // 5 MOST UPVOTED
     public List<Article> findMostUpvoted5(){
-        return this.articleRepository.findFirst5ByAndStatusEqualsOrderByUpvotesDesc("published");
+        return this.articleRepository.findFirst5ByAndStatusEqualsOrderByUpvotesDesc(Status.PUBLISHED);
     }
 
     // INCREMENT UPVOTES
