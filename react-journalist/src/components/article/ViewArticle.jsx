@@ -12,9 +12,13 @@ class ViewArticle extends Component {
             comments : [],
             keywords : [],
             category : '',
+            views : '',
+            upvotes : '',
             message: null
         };
         this.reloadArticle = this.reloadArticle.bind(this);
+        this.view = this.view.bind(this);
+        this.upvote = this.upvote.bind(this);
     }
 
     componentDidMount() {
@@ -27,6 +31,9 @@ class ViewArticle extends Component {
         ApiService.fetchById("articles",this.props.match.params.id)
             .then(res => {
                 this.setState({ article:res.data });
+                this.setState({ upvotes:res.data.upvotes});
+                this.setState({ views:1+res.data.views});
+                this.view();
             });
 
         // get article's authors
@@ -52,11 +59,42 @@ class ViewArticle extends Component {
             .then(res => {
                 this.setState({ category:res.data.name });
             });
+
+        if(document.cookie.match(/^(.*;)?\s*upvoted\s*=\s*[^;]+(.*)?$/)){
+            document.getElementById("upvoteBtn").style.backgroundColor = "mediumseagreen";
+            document.getElementById("upvoteBtn").style.borderColor = "seagreen";
+        }
+    }
+
+    view(){
+        if(!document.cookie.match(/^(.*;)?\s*viewed\s*=\s*[^;]+(.*)?$/)) {
+            ArticleApiService.incrementViews(this.props.match.params.id);
+            this.setState({views:this.state.views+1});
+            document.cookie = "viewed=y";
+        }
+    }
+
+    upvote(){
+        if(!document.cookie.match(/^(.*;)?\s*upvoted\s*=\s*[^;]+(.*)?$/)){
+            ArticleApiService.incrementUpvotes(this.props.match.params.id);
+            this.setState({upvotes:this.state.upvotes+1});
+            document.cookie = "upvoted=y;max-age=31536000";
+            document.getElementById("upvoteBtn").style.backgroundColor = "mediumseagreen";
+            document.getElementById("upvoteBtn").style.borderColor = "seagreen";
+        }
     }
 
     render() {
         return (
             <div className="row viewarticle">
+                <div style={{left:"150px", position:"fixed", zIndex:"1000"}}>
+                    <h1>
+                        <button id="upvoteBtn" onClick={this.upvote} className="btn btn-danger" style={{width:"50px", marginBottom:"10px"}} title="Click to upvote!"><i className="fa fa-caret-up"/><br/>{this.state.upvotes}</button>
+                        <br/>
+                        <span className="btn btn-light" style={{cursor:"auto", width:"50px"}} title="Views"><i className="fa fa-eye"/>&nbsp;{this.state.views}</span>
+                    </h1>
+                </div>
+
                 <div className="col-md-12">
                     <h3 className="category">{this.state.category}</h3>
                     <h2>{this.state.article.title}</h2>
