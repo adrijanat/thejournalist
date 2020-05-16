@@ -5,7 +5,10 @@ import com.thejournalist.journalist.model.Status;
 import com.thejournalist.journalist.repository.ArticleRepository;
 import org.springframework.stereotype.Service;
 
+import java.math.BigInteger;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -62,4 +65,18 @@ public class ArticleService {
 
     // INCREMENT VIEWS
     public void incrementViews(long id){ this.articleRepository.incrementViews(id); }
+
+    // STAT: UPVOTES BY CATEGORY
+    public Map<String,Integer> upvotesByCategory(){
+        List<Object[]> result = this.articleRepository.upvotesByCat();
+        Map<String,Integer> map = null;
+        if(result != null && !result.isEmpty()){
+            map = new HashMap<String,Integer>();
+            for (Object[] object : result) {
+                map.put( (String)object[1], ((BigInteger) object[0]).intValue());
+            }
+        }
+        return map;
+
+    }
 }
