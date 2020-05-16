@@ -13,6 +13,10 @@ class ApiService {
         return axios.get(BASE_A + id + "/category");
     }
 
+    fetchArticlesByCategory(catid){
+        return axios.get(BASE + "categories/" + catid + "/articles");
+    }
+
     fetchArticleComments(id){
         return axios.get(BASE_A + id + "/comments");
     }
@@ -74,6 +78,14 @@ class ApiService {
             BASE_A + articleid,
             {headers: {"Content-Type": "text/uri-list"}}
         )
+    }
+
+    incrementUpvotes(articleid){
+        return axios.post(BASE_A + articleid + "/upvote");
+    }
+
+    incrementViews(articleid){
+        return axios.post(BASE_A + articleid + "/view");
     }
 }
 
