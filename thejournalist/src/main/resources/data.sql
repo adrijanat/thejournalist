@@ -54,7 +54,7 @@ current_timestamp,
 1,
 12,
 5,
-'published',
+'PUBLISHED',
 'https://media.irishpost.co.uk/uploads/2020/05/05154315/spirit-1.jpg');
 
 --news
@@ -81,7 +81,7 @@ current_timestamp,
 2,
 7,
 0,
-'published',
+'PUBLISHED',
 'https://www.traveller.com.au/content/dam/images/h/1/a/m/8/q/image.related.articleLeadwide.620x349.h1am8c.png/1548738507159.jpg');
 
 -- technology
@@ -94,7 +94,7 @@ current_timestamp,
 3,
 10,
 4,
-'published',
+'PUBLISHED',
 'https://www.sasa-software.com/wp-content/uploads/2019/11/1.-Thumb-drive-2-1024x576-1024x576.jpg');
 
 insert into ARTICLE (body,summary,title,datecreated,datelastmodified,categoryid,views,upvotes,status,image) values (
@@ -117,7 +117,7 @@ She believes Ireland''s strong showing in the study is due to a combination of f
 3,
 10,
 4,
-'published',
+'PUBLISHED',
 'https://kalkawebsolutions.com/wp-content/uploads/2019/09/endpoint-security.jpg');
 
 
@@ -140,7 +140,7 @@ current_timestamp,
 32,
 13,
 'https://rollingstoneindia.com/wp-content/uploads/2019/12/EP9-066904_RW.jpg',
-'published');
+'PUBLISHED');
 
 insert into ARTICLE (title,summary,body,datecreated,datelastmodified,categoryid,views,upvotes,image,status) values (
 'Academy award winner Taika Waititi to direct and co-write new Star Wars feature film for theatrical release',
@@ -158,7 +158,7 @@ current_timestamp,
 32,
 13,
 'https://starwarsblog.starwars.com/wp-content/uploads/2020/05/star-wars-announcement-taika-tall.jpg',
-'published');
+'PUBLISHED');
 
 
 insert into ARTICLE (title,summary,body,datecreated,datelastmodified,categoryid,views,upvotes,image,status) values (
@@ -180,7 +180,7 @@ current_timestamp,
 32,
 13,
 'https://www.fodors.com/wp-content/uploads/2019/03/UltimateCostaRica__HERO_shutterstock_1245999643.jpg',
-'published');
+'PUBLISHED');
 
 insert into ARTICLE (title,summary,body,datecreated,datelastmodified,categoryid,views,upvotes,image,status) values (
 'The Best Horror Movies of the Year (So Far)',
@@ -234,7 +234,7 @@ current_timestamp,
 32,
 13,
 'https://pyxis.nymag.com/v1/imgs/707/06a/16d794118a9012ebb5d0ca65fd9ccc431d-best-of-horror-so-far-may.rhorizontal.w700.jpg',
-'published');
+'PUBLISHED');
 
 insert into ARTICLE (title,summary,body,datecreated,datelastmodified,categoryid,views,upvotes,image,status) values (
 'How to make the best Irish coffee',
@@ -265,7 +265,7 @@ current_timestamp,
 32,
 13,
 'https://locable-assets-production.s3.amazonaws.com/uploads/resource/file/345514/Irish-Coffee.jpg?timestamp=1489507194',
-'published');
+'PUBLISHED');
 
 
 
@@ -281,7 +281,7 @@ current_timestamp,
 5,
 52,
 8,
-'published',
+'PUBLISHED',
 'https://www.thetimes.co.uk/imageserver/image/%2Fmethode%2Ftimes%2Fprod%2Fweb%2Fbin%2Feda1fa9a-8e1f-11ea-866d-11e3826964c3.jpg?crop=6120%2C3442%2C0%2C370&resize=1180');
 
 insert into ARTICLE (body,summary,title,datecreated,datelastmodified,categoryid,views,upvotes,status,image) values (
@@ -317,7 +317,7 @@ current_timestamp,
 5,
 52,
 8,
-'published',
+'PUBLISHED',
 'https://www.readersdigest.ca/wp-content/uploads/2019/08/fall-superfoods-1200x675.jpg');
 
 
@@ -342,7 +342,7 @@ current_timestamp,
 124,
 87,
 'https://cdn.theatlantic.com/thumbor/Ki28Af7LUpc7cNzA0UsYGZHl3ec=/672x594/media/img/posts/2020/02/P36254/original.jpg',
-'published');
+'PUBLISHED');
 
 insert into ARTICLE (body,summary,title,datecreated,datelastmodified,categoryid,views,upvotes,status,image) values (
 'The Universe is a wondrous place, full of vast numbers of planets to explore, unsolved mysteries, and even ''superbubbles'' blown by black holes.
@@ -379,7 +379,7 @@ current_timestamp,
 6,
 77,
 58,
-'published',
+'PUBLISHED',
 'https://www.sciencealert.com/images/2019-03/processed/potw1833a2_web_1024.jpg');
 
 
@@ -399,7 +399,7 @@ current_timestamp,
 7,
 52,
 34,
-'published',
+'PUBLISHED',
 'https://cdn.pixabay.com/photo/2020/02/01/00/19/norway-4809258_960_720.jpg');
 
 -- business
@@ -422,7 +422,7 @@ current_timestamp,
 8,
 34,
 3,
-'published',
+'PUBLISHED',
 'https://boygeniusreport.files.wordpress.com/2020/03/netflix-iphone-app-sign.jpg?quality=98&strip=all&w=782');
 
 
@@ -496,7 +496,7 @@ current_timestamp,
 8,
 10,
 4,
-'published',
+'PUBLISHED',
 'https://hbr.org/resources/images/article_assets/2020/02/Feb20_14_171272186-1024x576.jpg');
 
 insert into ARTICLE (title,summary,body,datecreated,datelastmodified,categoryid,views,upvotes,status,image) values
@@ -529,7 +529,7 @@ CURRENT_TIMESTAMP,
 2,
 0,
 0,
-'draft',
+'DRAFT',
 'https://www.irishtimes.com/polopoly_fs/1.4113308.1576159490!/image/image.jpg_gen/derivatives/box_620_330/image.jpg'
 );
 
