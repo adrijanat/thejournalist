@@ -54,7 +54,7 @@ current_timestamp,
 1,
 12,
 5,
-'draft',
+'published',
 'https://media.irishpost.co.uk/uploads/2020/05/05154315/spirit-1.jpg');
 
 --news
