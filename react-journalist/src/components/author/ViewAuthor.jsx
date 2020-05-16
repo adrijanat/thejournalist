@@ -26,8 +26,8 @@ export default class ViewAuthor extends Component {
                     this.setState({message: "none"});
                     return;
                 }
-                const articles = author.articles.filter(function(art) {return art.status == "published";});
-                const drafts = author.articles.filter(function(art) {return art.status == "draft";});
+                const articles = author.articles.filter(function(art) {return art.status == "PUBLISHED";});
+                const drafts = author.articles.filter(function(art) {return art.status == "DRAFT";});
                 this.setState({ author , articles, drafts});
             })
     }
@@ -76,28 +76,9 @@ export default class ViewAuthor extends Component {
                             <br/>
                             <h2>Drafts ({this.state.drafts.length})</h2>
                             <br/>
-                            {
-                                this.state.drafts.map(
-                                    article =>
-                                        <div className="row" key={article.articleid}>
-                                            <div className="col-md-3">
-                                                <img src={article.image}/>
-                                            </div>
-                                            <div className="col-md-9">
-                                    <span style={{float:"right"}}>
-                                        <a href="#" title="Post"><i className="btn fa fa-rocket btn-success"/></a>
-                                        <a href="#" title="Edit"><i className="btn fa fa-edit btn-secondary"/></a>
-                                        <a href="#" title="Delete"><i className="btn fa fa-trash btn-danger"/></a>
-                                    </span>
-
-                                                <h3>{article.title}</h3>
-                                                <p>News | {article.datelastmodified}</p>
-                                                <p>{article.summary}</p>
-                                            </div>
-                                        </div>
-                                )
-                            }
+                            { this.state.drafts.map( article => <ListArticleElement isdraft="true" article={article}/>) }
                         </section>
+
                     </div>
                 }
             </div>
