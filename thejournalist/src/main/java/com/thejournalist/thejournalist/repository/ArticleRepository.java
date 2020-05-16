@@ -13,22 +13,22 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
     /*default methods: save(), findOne(), findById(), findAll(), count(), delete(), deleteById() */
 
     // find by search
-    List<Article> findByTitleContainingIgnoreCaseOrSummaryContainingIgnoreCaseOrBodyContainingIgnoreCase(String q1, String q2, String q3);
+    List<Article> findByTitleContainingIgnoreCaseOrSummaryContainingIgnoreCaseOrBodyContainingIgnoreCaseAndStatusEquals(String q1, String q2, String q3, String status);
 
     // find all starting with latest
     List<Article> findByOrderByDatecreatedDesc();
 
     // latest
-    List<Article> findFirst5ByOrderByDatecreatedDesc();
+    List<Article> findFirst5ByAndStatusEqualsOrderByDatecreatedDesc(String status);
 
     // most viewed
-    List<Article> findFirst5ByOrderByViewsDesc();
+    List<Article> findFirst5ByAndStatusEqualsOrderByViewsDesc(String status);
 
     // most upvoted
-    List<Article> findFirst5ByOrderByUpvotesDesc();
+    List<Article> findFirst5ByAndStatusEqualsOrderByUpvotesDesc(String status);
 
     // latest in category
-    Optional<Article> findFirstByCategory_Categoryid(long id);
+    Optional<Article> findFirstByCategory_CategoryidAndStatusEquals(long id, String status);
 
     // increment upvotes
     @Transactional
