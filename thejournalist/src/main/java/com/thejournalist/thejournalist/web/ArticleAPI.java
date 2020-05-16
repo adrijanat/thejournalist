@@ -1,10 +1,10 @@
-package com.thejournalist.thejournalist.web;
+package com.thejournalist.journalist.web;
 
-import com.thejournalist.thejournalist.model.Category;
-import com.thejournalist.thejournalist.service.ArticleService;
-import com.thejournalist.thejournalist.model.Article;
-import com.thejournalist.thejournalist.service.CategoryService;
-import com.thejournalist.thejournalist.service.KeywordService;
+import com.thejournalist.journalist.model.Category;
+import com.thejournalist.journalist.service.ArticleService;
+import com.thejournalist.journalist.model.Article;
+import com.thejournalist.journalist.service.CategoryService;
+import com.thejournalist.journalist.service.KeywordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -125,4 +125,27 @@ public class ArticleAPI {
             return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
         }
     }
+
+    // INCREMENT UPVOTES
+    @PostMapping("/{id}/upvote")
+    public ResponseEntity<HttpStatus> incrementUpvotes(@PathVariable("id") long id) {
+        try {
+            articleService.incrementUpvotes(id);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
+        }
+    }
+
+    // INCREMENT VIEWS
+    @PostMapping("/{id}/view")
+    public ResponseEntity<HttpStatus> incrementViews(@PathVariable("id") long id) {
+        try {
+            articleService.incrementViews(id);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
+        }
+    }
+
 }
