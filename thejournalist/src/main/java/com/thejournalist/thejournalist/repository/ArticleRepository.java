@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public interface ArticleRepository extends JpaRepository<Article, Long> {
@@ -42,5 +43,9 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
     @Modifying
     @Query("update Article set views = views + 1 where id = ?1")
     void incrementViews(Long id);
+
+    // stat: upvotes by category
+    @Query(value = "select sum(upvotes),c.name from Article as a join Category as c on a.categoryid=c.categoryid group by a.categoryid",nativeQuery = true)
+    List<Object[]> upvotesByCat();
 
 }
