@@ -1,7 +1,7 @@
 # The Journalist
   - Online magazine bringing you news from all spheres of life 
   - Проект по Веб програмирање, ФИНКИ
-  - Адријана Темелковска, 142019
+  - Адријана Темелковска
 
 ### Начин на стартување на апликацијата
   - **Spring Boot (thejournalist)**: Во IDE (пр. IntelliJ IDEA) потребно е да се стартува Spring Boot апликацијата (thejournalist), по што ќе стане достапна на localhost:8080.
